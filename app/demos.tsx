@@ -76,6 +76,32 @@ import {
 } from "@/components/ui/skeleton"
 import { DataTable, dataTableColumns } from "@/components/ui/data-table"
 import { toast } from "@/components/ui/toast"
+import { Toggle as TogglePrimitive } from "@base-ui/react/toggle"
+import { ToggleGroup as ToggleGroupPrimitive } from "@base-ui/react/toggle-group"
+import { CalendarIcon } from "@heroicons/react/24/outline"
+import {
+  Autocomplete,
+  AutocompleteContent,
+  AutocompleteEmpty,
+  AutocompleteInput,
+  AutocompleteItem,
+  AutocompleteList,
+} from "@/components/ui/autocomplete"
+import { Calendar } from "@/components/ui/calendar"
+import { Checkbox } from "@/components/ui/checkbox"
+import { CheckboxGroup } from "@/components/ui/checkbox-group"
+import { Field, FieldLabel } from "@/components/ui/field"
+import { Form } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+  SegmentedControl,
+  SegmentedControlItem,
+} from "@/components/ui/segmented-control"
 
 export function ToastDemo() {
   return (
@@ -561,5 +587,130 @@ export function DataTableDemo() {
         )
       }
     />
+  )
+}
+
+const cities = [
+  "Amsterdam",
+  "Barcelona",
+  "Copenhagen",
+  "Helsinki",
+  "Lisbon",
+  "Oslo",
+  "Stockholm",
+  "Vienna",
+]
+
+export function AutocompleteDemo() {
+  return (
+    <Autocomplete items={cities}>
+      <AutocompleteInput
+        placeholder="Search a city…"
+        showClear
+        className="max-w-xs"
+      />
+      <AutocompleteContent>
+        <AutocompleteEmpty>No matching city.</AutocompleteEmpty>
+        <AutocompleteList>
+          {(city: string) => (
+            <AutocompleteItem key={city} value={city}>
+              {city}
+            </AutocompleteItem>
+          )}
+        </AutocompleteList>
+      </AutocompleteContent>
+    </Autocomplete>
+  )
+}
+
+export function DatePickerDemo() {
+  const [date, setDate] = useState<Date>()
+  const [open, setOpen] = useState(false)
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger
+        render={<Button variant="outline" className="w-56 justify-start" />}
+      >
+        <CalendarIcon />
+        {date
+          ? date.toLocaleDateString(undefined, { dateStyle: "medium" })
+          : "Pick a date"}
+      </PopoverTrigger>
+      <PopoverContent className="w-auto" align="start">
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={(day) => {
+            setDate(day)
+            setOpen(false)
+          }}
+        />
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+const permissions = ["Read", "Write", "Deploy"]
+
+export function CheckboxGroupDemo() {
+  const [value, setValue] = useState(["Read"])
+  return (
+    <CheckboxGroup
+      value={value}
+      onValueChange={setValue}
+      allValues={permissions}
+      aria-label="Permissions"
+    >
+      <Field orientation="horizontal">
+        <Checkbox id="perm-all" parent />
+        <FieldLabel htmlFor="perm-all">All permissions</FieldLabel>
+      </Field>
+      {permissions.map((permission) => (
+        <Field key={permission} orientation="horizontal" className="ml-6">
+          <Checkbox id={`perm-${permission}`} value={permission} />
+          <FieldLabel htmlFor={`perm-${permission}`}>{permission}</FieldLabel>
+        </Field>
+      ))}
+    </CheckboxGroup>
+  )
+}
+
+export function SegmentedControlDemo() {
+  return (
+    <SegmentedControl render={<ToggleGroupPrimitive defaultValue={["week"]} />}>
+      {["Day", "Week", "Month"].map((label) => (
+        <SegmentedControlItem
+          key={label}
+          render={<TogglePrimitive value={label.toLowerCase()} />}
+        >
+          {label}
+        </SegmentedControlItem>
+      ))}
+    </SegmentedControl>
+  )
+}
+
+export function FormDemo() {
+  return (
+    <Form
+      className="max-w-xs"
+      onSubmit={(event) => {
+        event.preventDefault()
+        toast.add({ title: "Invite sent" })
+      }}
+    >
+      <Field>
+        <FieldLabel htmlFor="invite-email">Invite by email</FieldLabel>
+        <Input
+          id="invite-email"
+          type="email"
+          required
+          placeholder="name@company.com"
+        />
+      </Field>
+      <Button type="submit" className="self-start">
+        Send invite
+      </Button>
+    </Form>
   )
 }

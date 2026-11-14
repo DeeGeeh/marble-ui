@@ -1,10 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "use-mobile",
+  "dependencies": [
+    "usehooks-ts@^3.1.1"
+  ],
   "files": [
     {
       "path": "hooks/use-mobile.ts",
-      "content": "import * as React from \"react\"\n\nconst query = \"(max-width: 767px)\"\n\nconst subscribe = (onChange: () => void) => {\n  const mql = window.matchMedia(query)\n  mql.addEventListener(\"change\", onChange)\n  return () => mql.removeEventListener(\"change\", onChange)\n}\n\nexport function useIsMobile() {\n  return React.useSyncExternalStore(\n    subscribe,\n    () => window.matchMedia(query).matches,\n    () => false\n  )\n}\n",
+      "content": "import { useMediaQuery } from \"usehooks-ts\"\n\n/** Below the md breakpoint. False on the server, then the real value after mount. */\nexport function useIsMobile() {\n  return useMediaQuery(\"(max-width: 767px)\", { initializeWithValue: false })\n}\n",
       "type": "registry:hook"
     }
   ],

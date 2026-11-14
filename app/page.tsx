@@ -34,6 +34,11 @@ import { AgentChat } from "./agent-chat"
 import { AppSidebar } from "./app-sidebar"
 import {
   AreaChartDemo,
+  AutocompleteDemo,
+  CheckboxGroupDemo,
+  DatePickerDemo,
+  FormDemo,
+  SegmentedControlDemo,
   BarChartDemo,
   LineChartDemo,
   PieChartDemo,
@@ -109,6 +114,34 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Checkbox } from "@/components/ui/checkbox"
+import {
+  Frame,
+  FrameDescription,
+  FrameHeader,
+  FramePanel,
+  FrameTitle,
+} from "@/components/ui/frame"
+import {
+  Meter,
+  MeterIndicator,
+  MeterLabel,
+  MeterTrack,
+  MeterValue,
+} from "@/components/ui/meter"
+import {
+  NumberField,
+  NumberFieldDecrement,
+  NumberFieldGroup,
+  NumberFieldIncrement,
+  NumberFieldInput,
+  NumberFieldScrubArea,
+} from "@/components/ui/number-field"
+import {
+  Toolbar,
+  ToolbarButton,
+  ToolbarGroup,
+  ToolbarSeparator,
+} from "@/components/ui/toolbar"
 import {
   CodeBlock,
   CodeBlockActions,
@@ -420,6 +453,42 @@ const groups: {
           </ToggleGroup>
         ),
       },
+      {
+        title: "Toolbar",
+        demo: (
+          <Toolbar>
+            <ToolbarGroup>
+              <ToolbarButton
+                render={
+                  <Button variant="ghost" size="icon-sm" aria-label="Bold" />
+                }
+              >
+                <BoldIcon />
+              </ToolbarButton>
+              <ToolbarButton
+                render={
+                  <Button variant="ghost" size="icon-sm" aria-label="Italic" />
+                }
+              >
+                <ItalicIcon />
+              </ToolbarButton>
+              <ToolbarButton
+                render={
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    aria-label="Underline"
+                  />
+                }
+              >
+                <UnderlineIcon />
+              </ToolbarButton>
+            </ToolbarGroup>
+            <ToolbarSeparator />
+            <ToolbarButton render={<Button size="sm" />}>Publish</ToolbarButton>
+          </Toolbar>
+        ),
+      },
     ],
   },
   {
@@ -443,6 +512,7 @@ const groups: {
           </FieldGroup>
         ),
       },
+      { title: "Form", demo: <FormDemo /> },
       {
         title: "Input",
         demo: (
@@ -451,6 +521,19 @@ const groups: {
             <Input placeholder="Disabled" disabled />
             <Input type="file" />
           </div>
+        ),
+      },
+      {
+        title: "Number Field",
+        demo: (
+          <NumberField defaultValue={8} min={0} max={99} className="max-w-40">
+            <NumberFieldScrubArea label="Seats" />
+            <NumberFieldGroup>
+              <NumberFieldDecrement />
+              <NumberFieldInput />
+              <NumberFieldIncrement />
+            </NumberFieldGroup>
+          </NumberField>
         ),
       },
       {
@@ -524,6 +607,7 @@ const groups: {
         ),
       },
       { title: "Combobox", demo: <ComboboxDemo /> },
+      { title: "Autocomplete", demo: <AutocompleteDemo /> },
       {
         title: "Checkbox",
         demo: (
@@ -539,6 +623,7 @@ const groups: {
           </div>
         ),
       },
+      { title: "Checkbox Group", demo: <CheckboxGroupDemo /> },
       {
         title: "Radio Group",
         demo: (
@@ -555,6 +640,7 @@ const groups: {
           </RadioGroup>
         ),
       },
+      { title: "Segmented Control", demo: <SegmentedControlDemo /> },
       {
         title: "Switch",
         demo: (
@@ -574,6 +660,7 @@ const groups: {
         title: "Calendar",
         demo: <Calendar mode="single" />,
       },
+      { title: "Date Picker", demo: <DatePickerDemo /> },
       { title: "Questionnaire", wide: true, demo: <QuestionnaireDemo /> },
     ],
   },
@@ -1113,6 +1200,18 @@ const groups: {
         demo: <Progress className="w-full max-w-sm" value={60} />,
       },
       {
+        title: "Meter",
+        demo: (
+          <Meter value={62} className="max-w-xs">
+            <MeterLabel>Storage</MeterLabel>
+            <MeterValue />
+            <MeterTrack>
+              <MeterIndicator />
+            </MeterTrack>
+          </Meter>
+        ),
+      },
+      {
         title: "Skeleton",
         demo: (
           <div className="flex w-full max-w-md flex-col gap-8">
@@ -1383,6 +1482,19 @@ const groups: {
             <Separator orientation="vertical" />
             Source
           </div>
+        ),
+      },
+      {
+        title: "Frame",
+        demo: (
+          <Frame className="w-full max-w-sm">
+            <FrameHeader>
+              <FrameTitle>Workspace</FrameTitle>
+              <FrameDescription>Two panels in one tray.</FrameDescription>
+            </FrameHeader>
+            <FramePanel>Members and roles</FramePanel>
+            <FramePanel>Billing and plans</FramePanel>
+          </Frame>
         ),
       },
       {

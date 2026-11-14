@@ -65,6 +65,7 @@ const items = [
   {
     name: "use-mobile",
     type: "registry:hook",
+    dependencies: [npm("usehooks-ts")],
     files: [{ path: "hooks/use-mobile.ts", type: "registry:hook" }],
   },
   ...components.map((name) => ({

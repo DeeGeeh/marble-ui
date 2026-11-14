@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox-group",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/marble-theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/checkbox-group.tsx",
+      "content": "\"use client\"\n\nimport { CheckboxGroup as CheckboxGroupPrimitive } from \"@base-ui/react/checkbox-group\"\nimport { cn } from \"@/lib/utils\"\n\n/** Checkboxes sharing one value array; a Checkbox with `parent` toggles them all. */\nfunction CheckboxGroup({ className, ...props }: CheckboxGroupPrimitive.Props) {\n  return (\n    <CheckboxGroupPrimitive\n      data-slot=\"checkbox-group\"\n      className={cn(\"flex flex-col items-start gap-3\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { CheckboxGroup }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
