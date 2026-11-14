@@ -5,6 +5,10 @@ import {
   ChatBubbleLeftRightIcon,
   CheckIcon,
   ChevronDownIcon,
+  TrashIcon,
+  EnvelopeIcon,
+  TagIcon,
+  ClockIcon,
   CommandLineIcon,
   CursorArrowRaysIcon,
   DocumentTextIcon,
@@ -360,9 +364,30 @@ const groups: {
           <ButtonGroup>
             <Button variant="outline">Archive</Button>
             <Button variant="outline">Report</Button>
-            <Button variant="outline" size="icon" aria-label="More">
-              <ChevronDownIcon />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                render={
+                  <Button variant="outline" size="icon" aria-label="More" />
+                }
+              >
+                <ChevronDownIcon />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>
+                  <ClockIcon /> Snooze
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <TagIcon /> Add label
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <EnvelopeIcon /> Mark as unread
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive">
+                  <TrashIcon /> Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </ButtonGroup>
         ),
       },
@@ -1422,11 +1447,10 @@ export default function KitchenSink() {
   return (
     <SidebarProvider>
       <AppSidebar
-        nav={groups.map((group, i) => ({
+        nav={groups.map((group) => ({
           title: group.title,
           url: `#${slug(group.title)}`,
           icon: group.icon,
-          isActive: i === 0,
           items: group.sections.map((section) => ({
             title: section.title,
             url: `#${slug(section.title)}`,
@@ -1450,7 +1474,7 @@ export default function KitchenSink() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="#">UI Kit</BreadcrumbLink>
+                <BreadcrumbLink href="#">Marble UI</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
@@ -1475,7 +1499,7 @@ export default function KitchenSink() {
                     key={section.title}
                     id={slug(section.title)}
                     className={cn(
-                      "flex min-w-0 scroll-mt-20 flex-col rounded-2xl border bg-card",
+                      "flex min-w-0 scroll-mt-20 flex-col rounded-2xl bg-muted/50 shadow-well",
                       section.wide && "md:col-span-2"
                     )}
                   >

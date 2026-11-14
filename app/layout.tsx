@@ -14,7 +14,7 @@ const display = Bricolage_Grotesque({
   variable: "--font-display",
 })
 
-export const metadata: Metadata = { title: "UI Kit" }
+export const metadata: Metadata = { title: "Marble UI" }
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

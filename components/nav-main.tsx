@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { ChevronRightIcon } from "@heroicons/react/24/outline"
 
 import {
@@ -23,17 +24,29 @@ export type NavMainItem = {
   title: string
   url: string
   icon: React.ReactNode
-  isActive?: boolean
   items?: { title: string; url: string }[]
 }
 
+/** `active` is the url of the section in view: its item is highlighted and its group opens (the others close). */
 export function NavMain({
   label,
   items,
+  active,
 }: {
   label: string
   items: NavMainItem[]
+  active?: string
 }) {
+  const activeGroup = items.find((item) =>
+    item.items?.some((sub) => sub.url === active)
+  )?.title
+  const [open, setOpen] = useState<Record<string, boolean>>({})
+  const [openedFor, setOpenedFor] = useState<string>()
+  if (activeGroup !== openedFor) {
+    setOpenedFor(activeGroup)
+    if (activeGroup) setOpen({ [activeGroup]: true })
+  }
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>{label}</SidebarGroupLabel>
@@ -41,7 +54,10 @@ export function NavMain({
         {items.map((item) => (
           <Collapsible
             key={item.title}
-            defaultOpen={item.isActive}
+            open={open[item.title] ?? false}
+            onOpenChange={(isOpen) =>
+              setOpen((all) => ({ ...all, [item.title]: isOpen }))
+            }
             render={<SidebarMenuItem />}
           >
             <SidebarMenuButton
@@ -65,7 +81,10 @@ export function NavMain({
                   <SidebarMenuSub>
                     {item.items.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton render={<a href={subItem.url} />}>
+                        <SidebarMenuSubButton
+                          isActive={subItem.url === active}
+                          render={<a href={subItem.url} />}
+                        >
                           <span>{subItem.title}</span>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>

@@ -99,6 +99,9 @@
     /* button keycap: a solid lip in a darker shade of the face (--lip); pressing sinks the face into it */
     --shadow-key: inset 0 1px 0 var(--highlight), inset 0 -1px 0 var(--edge), 0 3px 0 var(--lip, var(--edge)), 0 5px 10px -4px var(--drop);
     --shadow-key-pressed: inset 0 1px 2px var(--edge), 0 1px 0 var(--lip, var(--edge));
+    /* engraved seam between joined segments (button groups): a dark cut with a lit edge beside it */
+    --inset-shadow-seam-x: inset 1px 0 0 var(--edge), inset 2px 0 0 var(--highlight);
+    --inset-shadow-seam-y: inset 0 1px 0 var(--edge), inset 0 2px 0 var(--highlight);
     /* highlighted menu item: small raised chip */
     --shadow-chip: inset 0 1px 0 var(--highlight), inset 0 -1px 0 var(--edge), 0 1px 2px var(--drop);
     /* chip edge that follows a shape's silhouette (e.g. a bubble plus its tail) */
@@ -163,7 +166,6 @@
     --sidebar-ring: var(--ring);
 
     /* material lighting */
-    --gloss-reflection: linear-gradient(115deg, transparent 14%, color-mix(in oklch, var(--sheen) 50%, transparent) 25%, color-mix(in oklch, var(--sheen) 12%, transparent) 37%, transparent 42%);
     --highlight: oklch(1 0 0 / 0.9);
     --edge: oklch(0.3 0.01 var(--tint) / 0.18);
     --drop: oklch(0.25 0.01 var(--tint) / 0.14);
@@ -243,10 +245,18 @@
   }
 }
 
+/* The diagonal reflection on its own. --gloss-strength (default 1) scales it per material: lighter on pale surfaces. */
+@utility gloss-sheen {
+  --gloss-reflection: linear-gradient(115deg, transparent 14%, color-mix(in oklch, var(--sheen) calc(50% * var(--gloss-strength, 1)), transparent) 25%, color-mix(in oklch, var(--sheen) calc(12% * var(--gloss-strength, 1)), transparent) 37%, transparent 42%);
+  background-image: var(--gloss-reflection);
+}
+
+/* Polished finish: the reflection over a deep base with a faint bounce light at the bottom lip.
+   A parent can take the reflection over (one streak across a button group) by setting --gloss-streak: none on its children. */
 @utility gloss {
-  /* polished finish: --gloss-reflection (diagonal streak) over a deep base with a faint bounce light at the bottom lip */
+  @apply gloss-sheen;
   background-image:
-    var(--gloss-reflection),
+    var(--gloss-streak, var(--gloss-reflection)),
     linear-gradient(to bottom, transparent 50%, var(--shade) 90%, var(--bounce));
 }
 

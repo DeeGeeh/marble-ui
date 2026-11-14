@@ -11,7 +11,7 @@ const toggleVariants = cva(
       variant: {
         default: "bg-transparent",
         outline:
-          "border border-input bg-card gloss shadow-key [--lip:color-mix(in_oklch,var(--border),var(--foreground)_12%)] hover:bg-muted active:translate-y-0.5 active:scale-100 active:shadow-key-pressed aria-pressed:translate-y-0.5 aria-pressed:bg-muted aria-pressed:shadow-key-pressed",
+          "border border-input bg-card gloss [--gloss-strength:0.5] shadow-key [--lip:color-mix(in_oklch,var(--border),var(--foreground)_12%)] hover:bg-muted active:translate-y-0.5 active:scale-100 active:shadow-key-pressed aria-pressed:translate-y-0.5 aria-pressed:bg-muted aria-pressed:shadow-key-pressed",
       },
       size: {
         default:

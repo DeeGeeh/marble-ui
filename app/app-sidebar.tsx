@@ -2,29 +2,36 @@
 
 import {
   BookOpenIcon,
+  ClipboardDocumentIcon,
   CubeIcon,
   MagnifyingGlassIcon,
   MoonIcon,
   TableCellsIcon,
 } from "@heroicons/react/24/outline"
+import { SiGithub } from "@icons-pack/react-simple-icons"
 import { useTheme } from "next-themes"
 import { useState } from "react"
+
+import { useActiveSection } from "./use-active-section"
 
 import { ComponentSearch, type ComponentIndex } from "./component-search"
 import { NavMain, type NavMainItem } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavSecondary } from "@/components/nav-secondary"
-import { NavUser } from "@/components/nav-user"
 import { Kbd, KbdGroup } from "@/components/ui/kbd"
+import { toast } from "@/components/ui/toast"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+
+const REPO = "https://github.com/DeeGeeh/marble-ui"
+const INSTALL =
+  "npx shadcn@latest add https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/marble-kit.json"
 
 const references = [
   { name: "shadcn/ui", url: "https://ui.shadcn.com", icon: <CubeIcon /> },
@@ -46,6 +53,9 @@ export function AppSidebar({
 }) {
   const [searchOpen, setSearchOpen] = useState(false)
   const { resolvedTheme, setTheme } = useTheme()
+  const active = useActiveSection(
+    index.flatMap((group) => group.sections.map((section) => section.id))
+  )
 
   return (
     <Sidebar variant="inset">
@@ -54,12 +64,14 @@ export function AppSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" render={<a href="#" />}>
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary gloss font-heading text-sm font-bold text-sidebar-primary-foreground shadow-chip">
-                U
+                M
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-heading font-bold">UI Kit</span>
+                <span className="truncate font-heading font-bold">
+                  Marble UI
+                </span>
                 <span className="truncate text-xs text-muted-foreground">
-                  Marble edition
+                  shadcn registry
                 </span>
               </div>
             </SidebarMenuButton>
@@ -67,11 +79,24 @@ export function AppSidebar({
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain label="Components" items={nav} />
+        <NavMain
+          label="Components"
+          items={nav}
+          active={active && `#${active}`}
+        />
         <NavProjects label="References" projects={references} />
         <NavSecondary
           className="mt-auto"
           items={[
+            {
+              title: "Copy install command",
+              icon: <ClipboardDocumentIcon />,
+              onSelect: () =>
+                navigator.clipboard
+                  .writeText(INSTALL)
+                  .then(() => toast.add({ title: "Install command copied" })),
+            },
+            { title: "GitHub", icon: <SiGithub />, url: REPO },
             {
               title: "Search",
               icon: <MagnifyingGlassIcon />,
@@ -93,9 +118,6 @@ export function AppSidebar({
           ]}
         />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={{ name: "Kit Maintainer", email: "kit@example.com" }} />
-      </SidebarFooter>
       <ComponentSearch
         index={index}
         open={searchOpen}
