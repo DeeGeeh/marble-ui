@@ -14,7 +14,7 @@ npx shadcn@latest add https://raw.githubusercontent.com/DeeGeeh/marble-ui/master
 npx shadcn@latest add https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/button.json
 ```
 
-Then add the theme to `app/globals.css`:
+Then replace `app/globals.css` with the theme (variables left there by `shadcn init` would override Marble):
 
 ```css
 @import "tailwindcss";

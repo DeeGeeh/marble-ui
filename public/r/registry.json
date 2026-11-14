@@ -41,7 +41,7 @@
           "type": "registry:component"
         }
       ],
-      "docs": "Add @import \"./marble.css\"; to app/globals.css after the Tailwind, tw-animate-css and shadcn/tailwind.css imports. Load Geist, Geist Mono and Bricolage Grotesque as --font-sans, --font-mono and --font-display, and wrap the app in <ThemeProvider>."
+      "docs": "Replace app/globals.css with: @import \"tailwindcss\"; @import \"tw-animate-css\"; @import \"shadcn/tailwind.css\"; @import \"./marble.css\"; (theme vars left by shadcn init would override Marble). Load Geist, Geist Mono and Bricolage Grotesque as --font-sans, --font-mono and --font-display, and wrap the app in <ThemeProvider>."
     },
     {
       "name": "use-mobile",
