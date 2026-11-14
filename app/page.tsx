@@ -26,6 +26,7 @@ import {
 
 import { cn } from "@/lib/utils"
 
+import { AgentChat } from "./agent-chat"
 import { AppSidebar } from "./app-sidebar"
 import {
   AreaChartDemo,
@@ -1150,6 +1151,7 @@ const groups: {
     title: "Chat",
     icon: <ChatBubbleLeftRightIcon />,
     sections: [
+      { title: "Agent Chat", wide: true, demo: <AgentChat /> },
       {
         title: "Message",
         wide: true,
