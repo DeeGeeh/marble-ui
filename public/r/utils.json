@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "utils",
+  "dependencies": [
+    "cn@^0.5.2"
+  ],
+  "files": [
+    {
+      "path": "lib/utils.ts",
+      "content": "import { createCn } from \"cn/config\"\n\n// Teach class merging our custom theme shadows (globals.css) so `shadow-none` can override `shadow-well` etc.\nexport const cn = createCn({\n  extend: {\n    theme: { shadow: [\"stone\", \"key\", \"key-pressed\", \"well\", \"slab\", \"chip\"] },\n  },\n})\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}

@@ -60,7 +60,7 @@ function ChartContainer({
   const uniqueId = React.useId()
   const chartId = `chart-${id ?? uniqueId.replace(/:/g, "")}`
 
-  // area fills reuse the band texture (--vein-fine, globals.css); it differs per theme, so re-read on switch
+  // area fills reuse the band texture (--vein-fine, marble.css); it differs per theme, so re-read on switch
   const veinRef = React.useRef<SVGFEImageElement>(null)
   const { resolvedTheme } = useTheme()
   React.useEffect(() => {

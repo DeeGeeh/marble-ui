@@ -1,5 +1,6 @@
 "use client"
 
+import "@blossom-carousel/react/style.css"
 import {
   BlossomCarousel,
   BlossomDots,

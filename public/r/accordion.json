@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accordion",
+  "dependencies": [
+    "@base-ui/react@^1.9.0",
+    "@heroicons/react@^2.2.0"
+  ],
+  "registryDependencies": [
+    "https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/marble-theme.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/accordion.tsx",
+      "content": "import { Accordion as AccordionPrimitive } from \"@base-ui/react/accordion\"\nimport { cn } from \"@/lib/utils\"\nimport { ChevronDownIcon, ChevronUpIcon } from \"@heroicons/react/24/outline\"\n\nfunction Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {\n  return (\n    <AccordionPrimitive.Root\n      data-slot=\"accordion\"\n      className={cn(\n        \"flex w-full flex-col overflow-hidden relative rounded-xl bg-card rim shadow-slab\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {\n  return (\n    <AccordionPrimitive.Item\n      data-slot=\"accordion-item\"\n      className={cn(\"not-last:border-b not-last:border-border/70\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AccordionTrigger({\n  className,\n  children,\n  ...props\n}: AccordionPrimitive.Trigger.Props) {\n  return (\n    <AccordionPrimitive.Header className=\"flex\">\n      <AccordionPrimitive.Trigger\n        data-slot=\"accordion-trigger\"\n        className={cn(\n          \"group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent px-4 py-3.5 text-left text-sm font-medium transition-colors outline-none hover:bg-muted focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:after:border-ring aria-disabled:pointer-events-none aria-disabled:opacity-50 aria-expanded:bg-muted/50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n        <ChevronDownIcon\n          data-slot=\"accordion-trigger-icon\"\n          className=\"pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden\"\n        />\n        <ChevronUpIcon\n          data-slot=\"accordion-trigger-icon\"\n          className=\"pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline\"\n        />\n      </AccordionPrimitive.Trigger>\n    </AccordionPrimitive.Header>\n  )\n}\n\nfunction AccordionContent({\n  className,\n  children,\n  ...props\n}: AccordionPrimitive.Panel.Props) {\n  return (\n    <AccordionPrimitive.Panel\n      data-slot=\"accordion-content\"\n      className=\"h-(--accordion-panel-height) overflow-hidden text-sm transition-[height] duration-200 ease-out data-ending-style:h-0 data-starting-style:h-0 motion-reduce:transition-none\"\n      {...props}\n    >\n      <div\n        className={cn(\n          \"px-4 pt-1 pb-4 text-muted-foreground [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4\",\n          className\n        )}\n      >\n        {children}\n      </div>\n    </AccordionPrimitive.Panel>\n  )\n}\n\nexport { Accordion, AccordionItem, AccordionTrigger, AccordionContent }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
