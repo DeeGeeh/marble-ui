@@ -28,7 +28,9 @@ function PromptInput({
       {...props}
     >
       {/* opaque: the field shouldn't show the marble of whatever band it sits on */}
-      <InputGroup className="rounded-xl bg-card dark:bg-card">{children}</InputGroup>
+      <InputGroup className="rounded-xl bg-card dark:bg-card">
+        {children}
+      </InputGroup>
     </form>
   )
 }
@@ -136,35 +138,22 @@ function PromptInputAttach({
 function PromptInputSubmit({
   busy = false,
   onStop,
-  className,
   ...props
 }: Omit<React.ComponentProps<typeof Button>, "type" | "onClick"> & {
   busy?: boolean
   onStop?: () => void
 }) {
-  return busy ? (
+  return (
     <Button
       data-slot="prompt-input-submit"
-      type="button"
+      type={busy ? "button" : "submit"}
       size="icon-sm"
-      variant="secondary"
-      aria-label="Stop"
-      onClick={onStop}
-      className={className}
+      variant={busy ? "secondary" : "default"}
+      aria-label={busy ? "Stop" : "Send"}
+      onClick={busy ? onStop : undefined}
       {...props}
     >
-      <StopIcon />
-    </Button>
-  ) : (
-    <Button
-      data-slot="prompt-input-submit"
-      type="submit"
-      size="icon-sm"
-      aria-label="Send"
-      className={className}
-      {...props}
-    >
-      <ArrowUpIcon />
+      {busy ? <StopIcon /> : <ArrowUpIcon />}
     </Button>
   )
 }
