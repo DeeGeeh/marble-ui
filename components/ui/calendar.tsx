@@ -11,10 +11,10 @@ import {
 
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
+  ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  ChevronDownIcon,
-} from "lucide-react"
+} from "@heroicons/react/24/outline"
 
 function Calendar({
   className,

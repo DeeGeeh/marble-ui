@@ -6,7 +6,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { ChevronRightIcon } from "lucide-react"
+import { ChevronRightIcon } from "@heroicons/react/24/outline"
 
 function Trace({ className, ...props }: React.ComponentProps<"div">) {
   return (

@@ -6,6 +6,12 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+    /* Motion: the only easing curves used. Tailwind's ease-out / ease-in-out are replaced with stronger curves. */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    --ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+
     /* Layer scale: the only z-index values used. Components with internal layers use `isolate`,
        so raised/pinned/floating stay local and never compete with page-level sticky or overlay. */
     --z-index-raised: 10;
@@ -14,9 +20,9 @@
     --z-index-floating: 40;
     --z-index-overlay: 50;
 
-    --animate-spinner-morph: spinner-morph 3.6s infinite;
+    --animate-spinner-morph: spinner-morph 2.4s infinite;
     --animate-skeleton-sweep: skeleton-sweep 1.8s ease-in-out infinite;
-    --animate-skeleton-reveal: skeleton-reveal 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    --animate-skeleton-reveal: skeleton-reveal 0.3s var(--ease-drawer);
 
     @keyframes skeleton-sweep {
         0% { translate: -100% 0; }
@@ -28,14 +34,14 @@
 
     /* morph: squish (anticipation) before each shape, overshoot after */
     @keyframes spinner-morph {
-        0% { border-radius: 50%; scale: 1; animation-timing-function: ease-in; }
-        8% { border-radius: 50%; scale: 0.82; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
-        25% { border-radius: 30%; scale: 1; animation-timing-function: ease-in; }
-        33% { border-radius: 30%; scale: 0.82; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
-        50% { border-radius: 50% 6% 50% 6%; scale: 1; animation-timing-function: ease-in; }
-        58% { border-radius: 50% 6% 50% 6%; scale: 0.82; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
-        75% { border-radius: 6% 50% 6% 50%; scale: 1; animation-timing-function: ease-in; }
-        83% { border-radius: 6% 50% 6% 50%; scale: 0.82; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+        0% { border-radius: 50%; scale: 1; animation-timing-function: var(--ease-out); }
+        8% { border-radius: 50%; scale: 0.82; animation-timing-function: var(--ease-overshoot); }
+        25% { border-radius: 30%; scale: 1; animation-timing-function: var(--ease-out); }
+        33% { border-radius: 30%; scale: 0.82; animation-timing-function: var(--ease-overshoot); }
+        50% { border-radius: 50% 6% 50% 6%; scale: 1; animation-timing-function: var(--ease-out); }
+        58% { border-radius: 50% 6% 50% 6%; scale: 0.82; animation-timing-function: var(--ease-overshoot); }
+        75% { border-radius: 6% 50% 6% 50%; scale: 1; animation-timing-function: var(--ease-out); }
+        83% { border-radius: 6% 50% 6% 50%; scale: 0.82; animation-timing-function: var(--ease-overshoot); }
         100% { border-radius: 50%; scale: 1; }
     }
 }
@@ -89,6 +95,8 @@
     --shadow-stone-pressed: inset 0 2px 3px var(--edge);
     /* highlighted menu item: small raised chip */
     --shadow-chip: inset 0 1px 0 var(--highlight), inset 0 -1px 0 var(--edge), 0 1px 2px var(--drop);
+    /* chip edge that follows a shape's silhouette (e.g. a bubble plus its tail) */
+    --drop-shadow-chip: 0 1px 0 var(--edge), 0 1px 2px var(--drop);
     /* recessed field, carved into the slab */
     --shadow-well: inset 0 1px 2px var(--edge), 0 1px 0 var(--highlight);
     /* cards: a tile with visible thickness */
@@ -136,7 +144,8 @@
     --chart-4: oklch(0.4 calc(var(--chroma) * 0.6) var(--hue));
     --chart-5: oklch(0.88 0.006 var(--tint));
     --radius: 0.75rem;
-    --sidebar: oklch(0.984 0.002 var(--tint));
+    /* the base surface the inset content panel sits on */
+    --sidebar: oklch(0.945 0.004 var(--tint));
     --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--primary);
     --sidebar-primary-foreground: var(--primary-foreground);
@@ -179,7 +188,7 @@
     --chart-3: oklch(0.48 calc(var(--chroma) * 0.6) var(--hue));
     --chart-4: oklch(0.82 calc(var(--chroma) * 0.5) var(--hue));
     --chart-5: oklch(0.38 0.006 var(--tint));
-    --sidebar: oklch(0.205 0.004 var(--tint));
+    --sidebar: oklch(0.16 0.004 var(--tint));
 
     --highlight: oklch(1 0 0 / 0.3);
     --edge: oklch(0 0 0 / 0.4);
@@ -242,6 +251,19 @@
     * {
       scrollbar-width: thin;
       scrollbar-color: color-mix(in oklch, var(--foreground) 25%, transparent) transparent;
+    }
+  }
+
+  /* Reduced motion: keep fades, drop movement and looping motion. */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      --tw-enter-scale: 1 !important;
+      --tw-exit-scale: 1 !important;
+      --tw-enter-translate-x: 0 !important;
+      --tw-enter-translate-y: 0 !important;
+      --tw-exit-translate-x: 0 !important;
+      --tw-exit-translate-y: 0 !important;
+      scroll-behavior: auto !important;
     }
   }
 

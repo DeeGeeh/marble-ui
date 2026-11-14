@@ -2,17 +2,17 @@
 
 import * as React from "react"
 import { Toast as ToastPrimitive } from "@base-ui/react/toast"
+import { Spinner } from "@/components/ui/spinner"
 import { cn } from "@/lib/utils"
+import {
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+  InformationCircleIcon,
+  XCircleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline"
 
 import { Button } from "@/components/ui/button"
-import {
-  XIcon,
-  CircleCheckIcon,
-  InfoIcon,
-  TriangleAlertIcon,
-  OctagonXIcon,
-  Loader2Icon,
-} from "lucide-react"
 
 const toast = ToastPrimitive.createToastManager()
 
@@ -44,7 +44,7 @@ function Toast({ className, ...props }: ToastPrimitive.Root.Props) {
       className={cn(
         "group/toast pointer-events-auto absolute right-0 bottom-0 z-[calc(1000-var(--toast-index))] w-full origin-bottom rounded-2xl border bg-popover text-popover-foreground shadow-lg will-change-transform outline-none select-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
         "[--gap:0.75rem] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))]",
-        "h-(--height) [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1),opacity_500ms,height_150ms]",
+        "h-(--height) [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] [transition:transform_400ms_var(--ease-out),opacity_400ms_var(--ease-out),height_150ms_var(--ease-out)]",
         "after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-['']",
         "data-expanded:h-(--toast-height) data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(var(--offset-y))]",
         "data-limited:opacity-0 data-starting-style:[transform:translateY(150%)]",
@@ -69,7 +69,7 @@ function ToastContent({ className, ...props }: ToastPrimitive.Content.Props) {
     <ToastPrimitive.Content
       data-slot="toast-content"
       className={cn(
-        "flex h-full items-center gap-3 overflow-hidden p-4 transition-opacity duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] data-behind:opacity-0 data-expanded:opacity-100",
+        "flex h-full items-center gap-3 overflow-hidden p-4 transition-opacity duration-250 ease-out data-behind:opacity-0 data-expanded:opacity-100",
         className
       )}
       {...props}
@@ -132,7 +132,7 @@ function ToastClose({
       )}
       {...props}
     >
-      {children ?? <XIcon aria-hidden="true" />}
+      {children ?? <XMarkIcon aria-hidden="true" />}
     </ToastPrimitive.Close>
   )
 }
@@ -141,23 +141,23 @@ function ToastIcon({ type }: { type: string | undefined }) {
   let icon: React.ReactNode = null
 
   if (type === "success") {
-    icon = <CircleCheckIcon aria-hidden="true" />
+    icon = <CheckCircleIcon aria-hidden="true" />
   }
 
   if (type === "info") {
-    icon = <InfoIcon aria-hidden="true" />
+    icon = <InformationCircleIcon aria-hidden="true" />
   }
 
   if (type === "warning") {
-    icon = <TriangleAlertIcon aria-hidden="true" />
+    icon = <ExclamationTriangleIcon aria-hidden="true" />
   }
 
   if (type === "error") {
-    icon = <OctagonXIcon className="text-destructive" aria-hidden="true" />
+    icon = <XCircleIcon className="text-destructive" aria-hidden="true" />
   }
 
   if (type === "loading") {
-    icon = <Loader2Icon className="animate-spin" aria-hidden="true" />
+    icon = <Spinner aria-hidden="true" />
   }
 
   if (!icon) {

@@ -13,7 +13,7 @@ function Spinner({ className, ...props }: React.ComponentProps<"span">) {
       )}
       {...props}
     >
-      <span className="absolute inset-[10%] animate-spinner-morph bg-current bg-[radial-gradient(circle_at_32%_26%,oklch(1_0_0/0.75),oklch(1_0_0/0.15)_22%,transparent_45%)] shadow-[inset_0_-0.08em_0.12em_oklch(0_0_0/0.35)]" />
+      <span className="absolute inset-[10%] animate-spinner-morph bg-current bg-[radial-gradient(circle_at_32%_26%,oklch(1_0_0/0.75),oklch(1_0_0/0.15)_22%,transparent_45%)] shadow-[inset_0_-0.08em_0.12em_oklch(0_0_0/0.35)] motion-reduce:animate-none" />
     </span>
   )
 }

@@ -14,6 +14,19 @@ const eslintConfig = defineConfig([
     rules: {
       // everywhere, including the kit itself: catch classes Tailwind can't generate
       "shadcn/no-unknown-classes": "error",
+      // icons come from Heroicons (24/outline); Lucide is banned
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "lucide-react",
+              message:
+                "Lucide is banned. Use @heroicons/react/24/outline (e.g. XIcon -> XMarkIcon, SearchIcon -> MagnifyingGlassIcon).",
+            },
+          ],
+        },
+      ],
     },
   },
   {

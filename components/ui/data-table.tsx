@@ -279,6 +279,7 @@ function DataTable<TData extends RowData>({
                       key={cell.id}
                       data-cell-id={cell.id}
                       data-focused={cell.getIsFocused()}
+                      data-editing={isEditing}
                       data-selected={cell.getIsSelected()}
                       tabIndex={cell.getCanSelect() ? cell.getTabIndex() : -1}
                       onMouseDown={(e) => {
@@ -293,7 +294,9 @@ function DataTable<TData extends RowData>({
                       className={cn(
                         "relative h-10 truncate border-b border-border/70 px-3 outline-none",
                         "bg-card group-hover/row:bg-muted group-data-[selected=true]/row:bg-accent",
-                        "data-[focused=true]:shadow-[inset_0_0_0_2px_var(--ring)] data-[selected=true]:bg-accent/70",
+                        "data-[selected=true]:bg-accent",
+                        // focus: a soft rounded ring inside the cell, hidden while the editor (with its own ring) is open
+                        "after:pointer-events-none after:absolute after:inset-1 after:rounded-md after:opacity-0 after:ring-2 after:ring-ring/70 data-[editing=true]:after:opacity-0 data-[focused=true]:after:opacity-100",
                         pinnedClass(cell.column)
                       )}
                     >
@@ -385,7 +388,8 @@ function CellEditor({
   onCommit: () => void
 }) {
   const className =
-    "absolute inset-0 z-raised w-full rounded-md bg-card px-3 text-sm outline-none gloss shadow-stone"
+    // a carved field, matching <Input> in its focused state
+    "absolute inset-1 z-raised w-[calc(100%-0.5rem)] rounded-md border border-ring bg-card px-2 text-sm shadow-well ring-3 ring-ring/25 outline-none"
   if (meta?.editor === "select") {
     return (
       <select

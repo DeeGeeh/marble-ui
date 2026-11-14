@@ -6,7 +6,7 @@ import {
   BlossomNext,
   BlossomPrev,
 } from "@blossom-carousel/react"
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
 import { createContext, use, useId } from "react"
 
 import { buttonVariants } from "@/components/ui/button"

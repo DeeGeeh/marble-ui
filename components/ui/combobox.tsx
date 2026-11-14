@@ -11,7 +11,11 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@/components/ui/input-group"
-import { ChevronDownIcon, XIcon, CheckIcon } from "lucide-react"
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline"
 
 const Combobox = ComboboxPrimitive.Root
 
@@ -44,7 +48,7 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
       className={cn(className)}
       {...props}
     >
-      <XIcon className="pointer-events-none" />
+      <XMarkIcon className="pointer-events-none" />
     </ComboboxPrimitive.Clear>
   )
 }
@@ -256,7 +260,7 @@ function ComboboxChip({
           className="-ml-1 opacity-50 hover:opacity-100"
           data-slot="combobox-chip-remove"
         >
-          <XIcon className="pointer-events-none" />
+          <XMarkIcon className="pointer-events-none" />
         </ComboboxPrimitive.ChipRemove>
       )}
     </ComboboxPrimitive.Chip>

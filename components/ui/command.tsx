@@ -12,7 +12,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { InputGroup, InputGroupAddon } from "@/components/ui/input-group"
-import { SearchIcon, CheckIcon } from "lucide-react"
+import { CheckIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 
 function Command({
   className,
@@ -51,6 +51,7 @@ function CommandDialog({
         <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
       <DialogContent
+        instant
         className={cn(
           "top-1/3 translate-y-0 overflow-hidden rounded-xl! p-0",
           className
@@ -79,7 +80,7 @@ function CommandInput({
           {...props}
         />
         <InputGroupAddon>
-          <SearchIcon className="size-4 shrink-0 opacity-50" />
+          <MagnifyingGlassIcon className="size-4 shrink-0 opacity-50" />
         </InputGroupAddon>
       </InputGroup>
     </div>

@@ -1,22 +1,30 @@
 import {
-  ArchiveIcon,
+  ArchiveBoxIcon,
+  BellIcon,
   BoldIcon,
+  ChatBubbleLeftRightIcon,
   CheckIcon,
   ChevronDownIcon,
-  CopyIcon,
-  FileTextIcon,
-  GitBranchIcon,
+  CommandLineIcon,
+  CursorArrowRaysIcon,
+  DocumentTextIcon,
+  ExclamationTriangleIcon,
   InboxIcon,
-  InfoIcon,
+  InformationCircleIcon,
   ItalicIcon,
-  SearchIcon,
-  TerminalIcon,
-  TriangleAlertIcon,
+  MagnifyingGlassIcon,
+  MapIcon,
+  PencilSquareIcon,
+  RectangleGroupIcon,
+  ShareIcon,
+  Square2StackIcon,
+  Square3Stack3DIcon,
+  Squares2X2Icon,
   UnderlineIcon,
-  XIcon,
-} from "lucide-react"
+  XMarkIcon,
+} from "@heroicons/react/24/outline"
 
-import { ComponentSearch } from "./component-search"
+import { AppSidebar } from "./app-sidebar"
 import {
   ChartDemo,
   DataTableDemo,
@@ -250,16 +258,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
   SidebarInset,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
@@ -313,10 +312,12 @@ const invoices = [
 
 const groups: {
   title: string
+  icon: React.ReactNode
   sections: { title: string; demo: React.ReactNode }[]
 }[] = [
   {
     title: "Actions",
+    icon: <CursorArrowRaysIcon />,
     sections: [
       {
         title: "Button",
@@ -336,7 +337,7 @@ const groups: {
               <Button>Default</Button>
               <Button size="lg">Large</Button>
               <Button size="icon" variant="outline" aria-label="Copy">
-                <CopyIcon />
+                <Square2StackIcon />
               </Button>
               <Button aria-busy>
                 <Spinner /> Loading
@@ -390,6 +391,7 @@ const groups: {
   },
   {
     title: "Forms",
+    icon: <PencilSquareIcon />,
     sections: [
       {
         title: "Field",
@@ -424,7 +426,7 @@ const groups: {
           <InputGroup className="w-full max-w-sm">
             <InputGroupInput placeholder="Search…" />
             <InputGroupAddon>
-              <SearchIcon />
+              <MagnifyingGlassIcon />
             </InputGroupAddon>
             <InputGroupAddon align="inline-end">12 results</InputGroupAddon>
           </InputGroup>
@@ -544,6 +546,7 @@ const groups: {
   },
   {
     title: "Overlays",
+    icon: <Square3Stack3DIcon />,
     sections: [
       {
         title: "Dialog",
@@ -708,6 +711,7 @@ const groups: {
   },
   {
     title: "Navigation",
+    icon: <MapIcon />,
     sections: [
       {
         title: "Tabs",
@@ -839,6 +843,7 @@ const groups: {
   },
   {
     title: "Data Display",
+    icon: <RectangleGroupIcon />,
     sections: [
       {
         title: "Card",
@@ -1024,7 +1029,7 @@ const groups: {
           <CodeBlock className="w-full max-w-md">
             <CodeBlockHeader>
               <CodeBlockTitle>
-                <TerminalIcon /> Terminal
+                <CommandLineIcon /> Terminal
               </CodeBlockTitle>
               <CodeBlockActions>
                 <CodeBlockCopyButton value="pnpm dlx shadcn@latest add button" />
@@ -1040,20 +1045,21 @@ const groups: {
   },
   {
     title: "Feedback",
+    icon: <BellIcon />,
     sections: [
       {
         title: "Alert",
         demo: (
           <div className="flex w-full max-w-md flex-col gap-3">
             <Alert>
-              <InfoIcon />
+              <InformationCircleIcon />
               <AlertTitle>Heads up</AlertTitle>
               <AlertDescription>
                 You can add components with the CLI.
               </AlertDescription>
             </Alert>
             <Alert variant="destructive">
-              <TriangleAlertIcon />
+              <ExclamationTriangleIcon />
               <AlertTitle>Payment failed</AlertTitle>
               <AlertDescription>Check your card details.</AlertDescription>
             </Alert>
@@ -1111,7 +1117,7 @@ const groups: {
           <Empty className="w-full max-w-md">
             <EmptyHeader>
               <EmptyMedia variant="icon">
-                <ArchiveIcon />
+                <ArchiveBoxIcon />
               </EmptyMedia>
               <EmptyTitle>No projects yet</EmptyTitle>
               <EmptyDescription>Create one to get started.</EmptyDescription>
@@ -1127,6 +1133,7 @@ const groups: {
   },
   {
     title: "Chat",
+    icon: <ChatBubbleLeftRightIcon />,
     sections: [
       {
         title: "Message",
@@ -1159,22 +1166,41 @@ const groups: {
       {
         title: "Bubble",
         demo: (
-          <div className="flex flex-wrap gap-2">
-            {(
-              [
-                "default",
-                "secondary",
-                "muted",
-                "tinted",
-                "outline",
-                "ghost",
-                "destructive",
-              ] as const
-            ).map((variant) => (
-              <Bubble key={variant} variant={variant}>
-                <BubbleContent>{variant}</BubbleContent>
-              </Bubble>
-            ))}
+          <div className="flex w-full max-w-md flex-col gap-6">
+            <div className="flex flex-wrap gap-2">
+              {(
+                [
+                  "default",
+                  "secondary",
+                  "muted",
+                  "tinted",
+                  "outline",
+                  "destructive",
+                ] as const
+              ).map((variant) => (
+                <Bubble key={variant} variant={variant}>
+                  <BubbleContent>{variant}</BubbleContent>
+                </Bubble>
+              ))}
+            </div>
+            {/* ghost is the plain-text reply style, so show it in a thread */}
+            <Message align="end">
+              <MessageContent>
+                <Bubble>
+                  <BubbleContent>What does the ghost variant do?</BubbleContent>
+                </Bubble>
+              </MessageContent>
+            </Message>
+            <Message>
+              <MessageContent>
+                <Bubble variant="ghost">
+                  <BubbleContent>
+                    It drops the bubble entirely, so long assistant answers read
+                    like plain text in the thread.
+                  </BubbleContent>
+                </Bubble>
+              </MessageContent>
+            </Message>
           </div>
         ),
       },
@@ -1184,13 +1210,13 @@ const groups: {
           <div className="flex flex-col gap-3">
             <Marker>
               <MarkerIcon>
-                <GitBranchIcon />
+                <ShareIcon />
               </MarkerIcon>
               <MarkerContent>Switched to release-candidate</MarkerContent>
             </Marker>
             <Marker variant="border">
               <MarkerIcon>
-                <SearchIcon />
+                <MagnifyingGlassIcon />
               </MarkerIcon>
               <MarkerContent>Reviewed 8 related files</MarkerContent>
             </Marker>
@@ -1206,7 +1232,7 @@ const groups: {
           <Trace className="w-full max-w-md">
             <TraceLine>
               <TraceIcon>
-                <FileTextIcon />
+                <DocumentTextIcon />
               </TraceIcon>
               <TraceTitle>Read app/page.tsx</TraceTitle>
             </TraceLine>
@@ -1214,7 +1240,7 @@ const groups: {
               <TraceCollapsibleTrigger>
                 <TraceLine>
                   <TraceIcon>
-                    <TerminalIcon />
+                    <CommandLineIcon />
                   </TraceIcon>
                   <TraceTitle>Ran node --version</TraceTitle>
                 </TraceLine>
@@ -1227,13 +1253,13 @@ const groups: {
             </TraceCollapsible>
             <TraceLine status="pending">
               <TraceIcon>
-                <SearchIcon />
+                <MagnifyingGlassIcon />
               </TraceIcon>
               <TraceTitle>Search queued</TraceTitle>
             </TraceLine>
             <TraceLine status="error">
               <TraceIcon>
-                <XIcon />
+                <XMarkIcon />
               </TraceIcon>
               <TraceTitle>Build failed</TraceTitle>
             </TraceLine>
@@ -1246,7 +1272,7 @@ const groups: {
           <div className="flex w-full max-w-sm flex-col gap-3">
             <Attachment>
               <AttachmentMedia>
-                <FileTextIcon />
+                <DocumentTextIcon />
               </AttachmentMedia>
               <AttachmentContent>
                 <AttachmentTitle>quarterly-report.pdf</AttachmentTitle>
@@ -1254,7 +1280,7 @@ const groups: {
               </AttachmentContent>
               <AttachmentActions>
                 <AttachmentAction aria-label="Remove">
-                  <XIcon />
+                  <XMarkIcon />
                 </AttachmentAction>
               </AttachmentActions>
             </Attachment>
@@ -1299,6 +1325,7 @@ const groups: {
   },
   {
     title: "Layout",
+    icon: <Squares2X2Icon />,
     sections: [
       {
         title: "Separator",
@@ -1372,52 +1399,51 @@ const slug = (title: string) => title.toLowerCase().replaceAll(" ", "-")
 export default function KitchenSink() {
   return (
     <SidebarProvider>
-      <Sidebar>
-        <SidebarHeader>
-          <span className="px-2 pt-2 font-heading text-lg font-bold">
-            UI Kit
-          </span>
-        </SidebarHeader>
-        <SidebarContent>
-          {groups.map((group) => (
-            <SidebarGroup key={group.title}>
-              <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {group.sections.map((section) => (
-                    <SidebarMenuItem key={section.title}>
-                      <SidebarMenuButton
-                        render={<a href={`#${slug(section.title)}`} />}
-                      >
-                        {section.title}
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          ))}
-        </SidebarContent>
-      </Sidebar>
+      <AppSidebar
+        nav={groups.map((group, i) => ({
+          title: group.title,
+          url: `#${slug(group.title)}`,
+          icon: group.icon,
+          isActive: i === 0,
+          items: group.sections.map((section) => ({
+            title: section.title,
+            url: `#${slug(section.title)}`,
+          })),
+        }))}
+        index={groups.map((group) => ({
+          title: group.title,
+          sections: group.sections.map((section) => ({
+            title: section.title,
+            id: slug(section.title),
+          })),
+        }))}
+      />
       <SidebarInset>
-        <header className="sticky top-0 z-sticky flex h-12 items-center gap-2 border-b bg-background px-4">
-          <SidebarTrigger />
-          <span className="text-sm text-muted-foreground">
-            Press <Kbd>D</Kbd> to toggle theme
-          </span>
-          <ComponentSearch
-            index={groups.map((group) => ({
-              title: group.title,
-              sections: group.sections.map((section) => ({
-                title: section.title,
-                id: slug(section.title),
-              })),
-            }))}
+        <header className="sticky top-0 z-sticky flex h-14 shrink-0 items-center gap-2 rounded-t-xl border-b bg-background px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator
+            orientation="vertical"
+            className="mr-2 data-vertical:h-4 data-vertical:self-auto"
           />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">UI Kit</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Components</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </header>
         <main className="flex flex-col gap-16 p-6 md:p-10">
           {groups.map((group) => (
-            <div key={group.title} className="flex flex-col gap-10">
+            <div
+              key={group.title}
+              id={slug(group.title)}
+              className="flex scroll-mt-20 flex-col gap-10"
+            >
               <h2 className="font-heading text-3xl font-bold tracking-tight">
                 {group.title}
               </h2>
@@ -1425,7 +1451,7 @@ export default function KitchenSink() {
                 <section
                   key={section.title}
                   id={slug(section.title)}
-                  className="flex scroll-mt-16 flex-col items-start gap-4"
+                  className="flex scroll-mt-20 flex-col items-start gap-4"
                 >
                   <h3 className="text-sm font-medium text-muted-foreground">
                     {section.title}

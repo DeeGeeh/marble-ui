@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button"
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-  MoreHorizontalIcon,
-} from "lucide-react"
+  EllipsisHorizontalIcon,
+} from "@heroicons/react/24/outline"
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -116,7 +116,7 @@ function PaginationEllipsis({
       )}
       {...props}
     >
-      <MoreHorizontalIcon />
+      <EllipsisHorizontalIcon />
       <span className="sr-only">More pages</span>
     </span>
   )

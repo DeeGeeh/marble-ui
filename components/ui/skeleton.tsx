@@ -12,7 +12,7 @@ function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
       )}
       {...props}
     >
-      <span className="absolute inset-0 animate-skeleton-sweep bg-[linear-gradient(115deg,transparent_25%,var(--skeleton-sheen)_50%,transparent_75%)]" />
+      <span className="absolute inset-0 animate-skeleton-sweep bg-[linear-gradient(115deg,transparent_25%,var(--skeleton-sheen)_50%,transparent_75%)] motion-reduce:animate-none" />
     </div>
   )
 }
