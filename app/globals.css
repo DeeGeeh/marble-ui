@@ -11,6 +11,8 @@
     --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
     --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
     --ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* every bare `transition-*` uses the token curve */
+    --default-transition-timing-function: var(--ease-out);
 
     /* Layer scale: the only z-index values used. Components with internal layers use `isolate`,
        so raised/pinned/floating stay local and never compete with page-level sticky or overlay. */
@@ -20,7 +22,7 @@
     --z-index-floating: 40;
     --z-index-overlay: 50;
 
-    --animate-spinner-morph: spinner-morph 2.4s infinite;
+    --animate-spinner-morph: spinner-morph 2.8s infinite;
     --animate-skeleton-sweep: skeleton-sweep 1.8s ease-in-out infinite;
     --animate-skeleton-reveal: skeleton-reveal 0.3s var(--ease-drawer);
 
@@ -32,17 +34,18 @@
         from { opacity: 0; translate: 0 6px; filter: blur(4px); }
     }
 
-    /* morph: squish (anticipation) before each shape, overshoot after */
+    /* morph: squish (anticipation) before each shape, overshoot after.
+       circle -> square -> diamond -> leaf: silhouettes that stay distinct at 1em */
     @keyframes spinner-morph {
-        0% { border-radius: 50%; scale: 1; animation-timing-function: var(--ease-out); }
-        8% { border-radius: 50%; scale: 0.82; animation-timing-function: var(--ease-overshoot); }
-        25% { border-radius: 30%; scale: 1; animation-timing-function: var(--ease-out); }
-        33% { border-radius: 30%; scale: 0.82; animation-timing-function: var(--ease-overshoot); }
-        50% { border-radius: 50% 6% 50% 6%; scale: 1; animation-timing-function: var(--ease-out); }
-        58% { border-radius: 50% 6% 50% 6%; scale: 0.82; animation-timing-function: var(--ease-overshoot); }
-        75% { border-radius: 6% 50% 6% 50%; scale: 1; animation-timing-function: var(--ease-out); }
-        83% { border-radius: 6% 50% 6% 50%; scale: 0.82; animation-timing-function: var(--ease-overshoot); }
-        100% { border-radius: 50%; scale: 1; }
+        0% { border-radius: 50%; scale: 1; rotate: 0deg; animation-timing-function: var(--ease-out); }
+        8% { border-radius: 50%; scale: 0.78; rotate: 0deg; animation-timing-function: var(--ease-overshoot); }
+        25% { border-radius: 12%; scale: 1; rotate: 0deg; animation-timing-function: var(--ease-out); }
+        33% { border-radius: 12%; scale: 0.78; rotate: 0deg; animation-timing-function: var(--ease-overshoot); }
+        50% { border-radius: 12%; scale: 0.86; rotate: 45deg; animation-timing-function: var(--ease-out); }
+        58% { border-radius: 12%; scale: 0.7; rotate: 45deg; animation-timing-function: var(--ease-overshoot); }
+        75% { border-radius: 50% 4% 50% 4%; scale: 1; rotate: 0deg; animation-timing-function: var(--ease-out); }
+        83% { border-radius: 50% 4% 50% 4%; scale: 0.78; rotate: 0deg; animation-timing-function: var(--ease-overshoot); }
+        100% { border-radius: 50%; scale: 1; rotate: 0deg; }
     }
 }
 
@@ -93,6 +96,9 @@
     /* raised button: lit top rim, thick bottom lip */
     --shadow-stone: inset 0 1px 0 var(--highlight), inset 0 -2px 0 var(--edge), 0 1px 2px var(--drop), 0 2px 6px -3px var(--drop);
     --shadow-stone-pressed: inset 0 2px 3px var(--edge);
+    /* button keycap: a solid lip in a darker shade of the face (--lip); pressing sinks the face into it */
+    --shadow-key: inset 0 1px 0 var(--highlight), inset 0 -1px 0 var(--edge), 0 3px 0 var(--lip, var(--edge)), 0 5px 10px -4px var(--drop);
+    --shadow-key-pressed: inset 0 1px 2px var(--edge), 0 1px 0 var(--lip, var(--edge));
     /* highlighted menu item: small raised chip */
     --shadow-chip: inset 0 1px 0 var(--highlight), inset 0 -1px 0 var(--edge), 0 1px 2px var(--drop);
     /* chip edge that follows a shape's silhouette (e.g. a bubble plus its tail) */
@@ -100,10 +106,10 @@
     /* recessed field, carved into the slab */
     --shadow-well: inset 0 1px 2px var(--edge), 0 1px 0 var(--highlight);
     /* cards: a tile with visible thickness */
-    --shadow-slab: inset 0 1px 0 var(--highlight), 0 0 0 1px var(--edge), 0 3px 0 -1px var(--edge), 0 10px 24px -14px var(--drop);
+    --shadow-slab: 0 0 0 1px var(--edge), 0 3px 0 -1px var(--edge), 0 10px 24px -14px var(--drop);
     --shadow-sm: 0 0 0 1px var(--edge), 0 2px 4px -2px var(--drop);
-    --shadow-md: inset 0 1px 0 var(--highlight), 0 0 0 1px var(--edge), 0 3px 0 -1px var(--edge), 0 12px 28px -12px var(--drop);
-    --shadow-lg: inset 0 1px 0 var(--highlight), 0 0 0 1px var(--edge), 0 4px 0 -1px var(--edge), 0 24px 48px -16px var(--drop);
+    --shadow-md: 0 0 0 1px var(--edge), 0 3px 0 -1px var(--edge), 0 12px 28px -12px var(--drop);
+    --shadow-lg: 0 0 0 1px var(--edge), 0 4px 0 -1px var(--edge), 0 24px 48px -16px var(--drop);
     --shadow-xl: var(--shadow-lg);
 }
 
@@ -138,11 +144,13 @@
     --border: oklch(0.9 0.005 var(--tint));
     --input: oklch(0.875 0.006 var(--tint));
     --ring: oklch(0.65 var(--chroma) var(--hue));
+    /* series: verde, its classic partner gold (the vein metal in green marble), then stones —
+       each a clear step apart in hue or lightness so neighbours never blur together */
     --chart-1: var(--primary);
-    --chart-2: oklch(0.68 calc(var(--chroma) * 0.8) var(--hue));
-    --chart-3: oklch(0.8 calc(var(--chroma) * 0.5) var(--hue));
-    --chart-4: oklch(0.4 calc(var(--chroma) * 0.6) var(--hue));
-    --chart-5: oklch(0.88 0.006 var(--tint));
+    --chart-2: oklch(0.74 0.1 78);
+    --chart-3: oklch(0.3 0.008 var(--tint));
+    --chart-4: oklch(0.84 calc(var(--chroma) * 0.7) var(--hue));
+    --chart-5: oklch(0.62 0.01 var(--tint));
     --radius: 0.75rem;
     /* the base surface the inset content panel sits on */
     --sidebar: oklch(0.945 0.004 var(--tint));
@@ -184,10 +192,10 @@
     --border: oklch(1 0 0 / 9%);
     --input: oklch(1 0 0 / 13%);
     --ring: oklch(0.62 var(--chroma) var(--hue));
-    --chart-2: oklch(0.6 calc(var(--chroma) * 0.8) var(--hue));
-    --chart-3: oklch(0.48 calc(var(--chroma) * 0.6) var(--hue));
-    --chart-4: oklch(0.82 calc(var(--chroma) * 0.5) var(--hue));
-    --chart-5: oklch(0.38 0.006 var(--tint));
+    --chart-2: oklch(0.78 0.1 78);
+    --chart-3: oklch(0.92 0.006 var(--tint));
+    --chart-4: oklch(0.36 calc(var(--chroma) * 0.7) var(--hue));
+    --chart-5: oklch(0.56 0.01 var(--tint));
     --sidebar: oklch(0.16 0.004 var(--tint));
 
     --highlight: oklch(1 0 0 / 0.3);
@@ -202,6 +210,39 @@
 }
 
 /* Polished surface: soft top-lit sheen over whatever bg-* color is set. */
+/* lit top edge of a slab: a 1px highlight that runs down the sides and fades out, instead of
+   pinching off inside the corner radius like an inset shadow. Host must be positioned; scrollers need a non-scrolling shell to carry it. */
+@utility rim {
+  &::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    border: 1px solid var(--highlight);
+    mask-image: linear-gradient(to bottom, #000, transparent 2.5rem);
+  }
+}
+@utility rim-none {
+  &::before { display: none; }
+}
+
+/* chart marks are stones too: bars, slices and rings get the chart's gloss filter (a soft top-left sheen
+   in the mark's own colour, defined in ChartContainer) and a shape-following lip; lines become raised ribbons */
+@layer components {
+  [data-slot="chart"] :is(.recharts-bar-rectangle .recharts-rectangle, .recharts-pie-sector .recharts-sector, .recharts-radial-bar-sector) {
+    filter: var(--chart-gloss) drop-shadow(0 2px 0 var(--edge)) drop-shadow(0 3px 3px var(--drop));
+  }
+  [data-slot="chart"] .recharts-area-area {
+    filter: var(--chart-marble);
+  }
+  [data-slot="chart"] :is(.recharts-line-curve, .recharts-area-curve) {
+    stroke-linecap: round;
+    filter: drop-shadow(0 2px 0 var(--edge));
+  }
+}
+
 @utility gloss {
   /* polished finish: --gloss-reflection (diagonal streak) over a deep base with a faint bounce light at the bottom lip */
   background-image:
@@ -265,6 +306,33 @@
       --tw-exit-translate-y: 0 !important;
       scroll-behavior: auto !important;
     }
+
+    /* popups: fade only, no zoom or slide */
+    :is([data-starting-style], [data-ending-style]) {
+      scale: 1 !important;
+    }
+    [data-side]:is([data-starting-style], [data-ending-style]) {
+      translate: none !important;
+    }
+
+    /* sheet + drawer: fade in place instead of sliding */
+    [data-slot="sheet-content"],
+    [data-slot="drawer-popup"] {
+      transition-property: opacity !important;
+    }
+    [data-slot="sheet-content"]:is([data-starting-style], [data-ending-style]) {
+      translate: none !important;
+    }
+    [data-slot="drawer-popup"]:is([data-starting-style], [data-ending-style]) {
+      transform: none !important;
+      opacity: 0 !important;
+    }
+
+    /* sidebar: open/close without sliding */
+    [data-slot="sidebar-gap"],
+    [data-slot="sidebar-container"] {
+      transition: none !important;
+    }
   }
 
   * {
@@ -275,5 +343,9 @@
     }
   html {
     @apply font-sans;
+    /* lets heights animate to/from `auto` (panels that start open close smoothly); browsers without it just snap */
+    interpolate-size: allow-keywords;
+    /* no grey flash over the stone surfaces on tap */
+    -webkit-tap-highlight-color: transparent;
     }
 }

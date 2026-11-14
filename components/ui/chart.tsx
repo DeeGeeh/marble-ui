@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import * as RechartsPrimitive from "recharts"
 import type { TooltipValueType } from "recharts"
@@ -44,6 +45,7 @@ function ChartContainer({
   children,
   config,
   initialDimension = INITIAL_DIMENSION,
+  style,
   ...props
 }: React.ComponentProps<"div"> & {
   config: ChartConfig
@@ -58,11 +60,28 @@ function ChartContainer({
   const uniqueId = React.useId()
   const chartId = `chart-${id ?? uniqueId.replace(/:/g, "")}`
 
+  // area fills reuse the band texture (--vein-fine, globals.css); it differs per theme, so re-read on switch
+  const veinRef = React.useRef<SVGFEImageElement>(null)
+  const { resolvedTheme } = useTheme()
+  React.useEffect(() => {
+    const vein = veinRef.current
+    if (!vein) return
+    const url = getComputedStyle(vein).getPropertyValue("--vein-fine")
+    vein.setAttribute("href", url.match(/url\("(.+)"\)/)?.[1] ?? "")
+  }, [resolvedTheme])
+
   return (
     <ChartContext.Provider value={{ config }}>
       <div
         data-slot="chart"
         data-chart={chartId}
+        style={
+          {
+            "--chart-gloss": `url(#${chartId}-gloss)`,
+            "--chart-marble": `url(#${chartId}-marble)`,
+            ...style,
+          } as React.CSSProperties
+        }
         className={cn(
           "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
           className
@@ -70,6 +89,57 @@ function ChartContainer({
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
+        {/* gloss: a soft specular sheen lit from the top-left, in each mark's own colour */}
+        <svg aria-hidden className="pointer-events-none absolute size-0">
+          <filter
+            id={`${chartId}-gloss`}
+            x="-10%"
+            y="-10%"
+            width="120%"
+            height="130%"
+          >
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur" />
+            <feSpecularLighting
+              in="blur"
+              surfaceScale="2"
+              specularConstant="0.45"
+              specularExponent="30"
+              lightingColor="white"
+              result="spec"
+            >
+              <feDistantLight azimuth="235" elevation="60" />
+            </feSpecularLighting>
+            <feComposite
+              in="spec"
+              in2="SourceAlpha"
+              operator="in"
+              result="sheen"
+            />
+            <feComposite
+              in="SourceGraphic"
+              in2="sheen"
+              operator="arithmetic"
+              k2="1"
+              k3="0.5"
+            />
+          </filter>
+          {/* marble: the band texture, tiled, clipped to a fill and fading with it */}
+          <filter
+            id={`${chartId}-marble`}
+            x="0"
+            y="0"
+            width="100%"
+            height="100%"
+          >
+            <feImage ref={veinRef} x="0" y="0" width="600" height="600" />
+            <feTile />
+            <feComposite in2="SourceGraphic" operator="in" result="veins" />
+            <feMerge>
+              <feMergeNode in="SourceGraphic" />
+              <feMergeNode in="veins" />
+            </feMerge>
+          </filter>
+        </svg>
         <RechartsPrimitive.ResponsiveContainer
           initialDimension={initialDimension}
         >
@@ -190,7 +260,7 @@ function ChartTooltipContent({
   return (
     <div
       className={cn(
-        "grid min-w-32 items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
+        "rim relative grid min-w-32 items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
         className
       )}
     >

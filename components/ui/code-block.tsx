@@ -111,7 +111,7 @@ function CodeBlockCopyButton({
         variant={variant}
         size={size}
         aria-label={copied ? "Copied" : "Copy"}
-        className={cn(className)}
+        className={cn("group/copy", className)}
         onClick={(event) => {
           onClick?.(event)
           navigator.clipboard
@@ -121,7 +121,10 @@ function CodeBlockCopyButton({
         }}
         {...props}
       >
-        {copied ? <CheckIcon /> : <Square2StackIcon />}
+        <span className="grid *:col-start-1 *:row-start-1 *:transition-[opacity,scale,filter] *:duration-150 *:ease-out">
+          <Square2StackIcon className="group-data-copied/copy:scale-75 group-data-copied/copy:opacity-0 group-data-copied/copy:blur-[2px]" />
+          <CheckIcon className="scale-75 opacity-0 blur-[2px] group-data-copied/copy:scale-100 group-data-copied/copy:opacity-100 group-data-copied/copy:blur-none" />
+        </span>
       </Button>
       <span aria-live="polite" className="sr-only">
         {copied ? "Copied" : ""}

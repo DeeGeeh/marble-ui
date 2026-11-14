@@ -227,99 +227,106 @@ function DataTable<TData extends RowData>({
   }
 
   return (
+    // shell carries the slab (corners, shadow, rim) and stays put; the inner box scrolls
     <div
-      ref={containerRef}
       data-slot="data-table"
-      data-scrolled={scrolled}
-      onScroll={(e) => setScrolled(e.currentTarget.scrollLeft > 0)}
-      onKeyDown={onKeyDown}
-      onPointerDownCapture={(e) => (shiftHeld.current = e.shiftKey)}
       className={cn(
-        "group/data-table relative isolate max-h-112 w-full overflow-auto rounded-xl bg-card bg-[linear-gradient(to_bottom,var(--muted)_calc(2.5rem+1px),transparent_0)] text-sm shadow-slab [--scrollbar-offset-top:2.75rem]",
+        "rim relative isolate w-full rounded-xl shadow-slab",
         className
       )}
     >
-      <DndContext
-        id={dndId}
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={onDragEnd}
+      <div
+        ref={containerRef}
+        data-scrolled={scrolled}
+        onScroll={(e) => setScrolled(e.currentTarget.scrollLeft > 0)}
+        onKeyDown={onKeyDown}
+        onPointerDownCapture={(e) => (shiftHeld.current = e.shiftKey)}
+        className="group/data-table relative isolate max-h-112 overflow-auto rounded-[inherit] bg-card bg-[linear-gradient(to_bottom,var(--muted)_calc(2.5rem+1px),transparent_0)] text-sm [--scrollbar-offset-top:2.75rem]"
       >
-        <table
-          className="border-separate border-spacing-0"
-          style={{ width: table.getTotalSize(), tableLayout: "fixed" }}
+        <DndContext
+          id={dndId}
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={onDragEnd}
         >
-          <thead>
-            {table.getHeaderGroups().map((group) => (
-              <tr key={group.id}>
-                <SortableContext
-                  items={columnOrder}
-                  strategy={horizontalListSortingStrategy}
+          <table
+            className="border-separate border-spacing-0"
+            style={{ width: table.getTotalSize(), tableLayout: "fixed" }}
+          >
+            <thead>
+              {table.getHeaderGroups().map((group) => (
+                <tr key={group.id}>
+                  <SortableContext
+                    items={columnOrder}
+                    strategy={horizontalListSortingStrategy}
+                  >
+                    {group.headers.map((header) => (
+                      <HeaderCell key={header.id} header={header} />
+                    ))}
+                  </SortableContext>
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr
+                  key={row.id}
+                  data-selected={row.getIsSelected()}
+                  className="group/row"
                 >
-                  {group.headers.map((header) => (
-                    <HeaderCell key={header.id} header={header} />
-                  ))}
-                </SortableContext>
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                data-selected={row.getIsSelected()}
-                className="group/row"
-              >
-                {row.getVisibleCells().map((cell) => {
-                  const isEditing =
-                    editing?.rowId === row.id &&
-                    editing.columnId === cell.column.id
-                  return (
-                    <td
-                      key={cell.id}
-                      data-cell-id={cell.id}
-                      data-focused={cell.getIsFocused()}
-                      data-editing={isEditing}
-                      data-selected={cell.getIsSelected()}
-                      tabIndex={cell.getCanSelect() ? cell.getTabIndex() : -1}
-                      onMouseDown={(e) => {
-                        if (!cell.getCanSelect() || isEditing) return
-                        // a second click on the focused cell opens it for editing
-                        if (cell.getIsFocused() && !e.shiftKey)
-                          startEditing(cell)
-                        else cell.getSelectionStartHandler()(e)
-                      }}
-                      onMouseEnter={(e) => cell.getSelectionExtendHandler()(e)}
-                      style={pinnedStyle(cell.column)}
-                      className={cn(
-                        "relative h-10 truncate border-b border-border/70 px-3 outline-none",
-                        "bg-card group-hover/row:bg-muted group-data-[selected=true]/row:bg-accent",
-                        "data-[selected=true]:bg-accent",
-                        // focus: a soft rounded ring inside the cell, hidden while the editor (with its own ring) is open
-                        "after:pointer-events-none after:absolute after:inset-1 after:rounded-md after:opacity-0 after:ring-2 after:ring-ring/70 data-[editing=true]:after:opacity-0 data-[focused=true]:after:opacity-100",
-                        pinnedClass(cell.column)
-                      )}
-                    >
-                      {isEditing ? (
-                        <CellEditor
-                          meta={cell.column.columnDef.meta}
-                          value={editing.draft}
-                          onChange={(draft) =>
-                            setEditing({ ...editing, draft })
-                          }
-                          onCommit={commit}
-                        />
-                      ) : (
-                        <table.FlexRender cell={cell} />
-                      )}
-                    </td>
-                  )
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </DndContext>
+                  {row.getVisibleCells().map((cell) => {
+                    const isEditing =
+                      editing?.rowId === row.id &&
+                      editing.columnId === cell.column.id
+                    return (
+                      <td
+                        key={cell.id}
+                        data-cell-id={cell.id}
+                        data-focused={cell.getIsFocused()}
+                        data-editing={isEditing}
+                        data-selected={cell.getIsSelected()}
+                        tabIndex={cell.getCanSelect() ? cell.getTabIndex() : -1}
+                        onMouseDown={(e) => {
+                          if (!cell.getCanSelect() || isEditing) return
+                          // a second click on the focused cell opens it for editing
+                          if (cell.getIsFocused() && !e.shiftKey)
+                            startEditing(cell)
+                          else cell.getSelectionStartHandler()(e)
+                        }}
+                        onMouseEnter={(e) =>
+                          cell.getSelectionExtendHandler()(e)
+                        }
+                        style={pinnedStyle(cell.column)}
+                        className={cn(
+                          "relative h-10 truncate border-b border-border/70 px-3 outline-none",
+                          "bg-card group-hover/row:bg-muted group-data-[selected=true]/row:bg-accent",
+                          "data-[selected=true]:bg-accent",
+                          // focus: a soft rounded ring inside the cell, hidden while the editor (with its own ring) is open
+                          "after:pointer-events-none after:absolute after:inset-1 after:rounded-md after:opacity-0 after:ring-2 after:ring-ring/70 data-[editing=true]:after:opacity-0 data-[focused=true]:after:opacity-100",
+                          pinnedClass(cell.column)
+                        )}
+                      >
+                        {isEditing ? (
+                          <CellEditor
+                            meta={cell.column.columnDef.meta}
+                            value={editing.draft}
+                            onChange={(draft) =>
+                              setEditing({ ...editing, draft })
+                            }
+                            onCommit={commit}
+                          />
+                        ) : (
+                          <table.FlexRender cell={cell} />
+                        )}
+                      </td>
+                    )
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DndContext>
+      </div>
     </div>
   )
 }

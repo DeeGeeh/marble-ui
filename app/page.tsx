@@ -24,9 +24,15 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 
+import { cn } from "@/lib/utils"
+
 import { AppSidebar } from "./app-sidebar"
 import {
-  ChartDemo,
+  AreaChartDemo,
+  BarChartDemo,
+  LineChartDemo,
+  PieChartDemo,
+  RadialChartDemo,
   DataTableDemo,
   SkeletonDemo,
   CommandDemo,
@@ -313,7 +319,7 @@ const invoices = [
 const groups: {
   title: string
   icon: React.ReactNode
-  sections: { title: string; demo: React.ReactNode }[]
+  sections: { title: string; demo: React.ReactNode; wide?: boolean }[]
 }[] = [
   {
     title: "Actions",
@@ -321,6 +327,7 @@ const groups: {
     sections: [
       {
         title: "Button",
+        wide: true,
         demo: (
           <>
             <div className="flex flex-wrap items-center gap-2">
@@ -541,7 +548,7 @@ const groups: {
         title: "Calendar",
         demo: <Calendar mode="single" />,
       },
-      { title: "Questionnaire", demo: <QuestionnaireDemo /> },
+      { title: "Questionnaire", wide: true, demo: <QuestionnaireDemo /> },
     ],
   },
   {
@@ -736,6 +743,7 @@ const groups: {
       },
       {
         title: "Navigation Menu",
+        wide: true,
         demo: (
           <NavigationMenu>
             <NavigationMenuList>
@@ -926,6 +934,7 @@ const groups: {
       },
       {
         title: "Table",
+        wide: true,
         demo: (
           <div className="w-full max-w-md">
             <Table>
@@ -957,8 +966,12 @@ const groups: {
           </div>
         ),
       },
-      { title: "Data Table", demo: <DataTableDemo /> },
-      { title: "Chart", demo: <ChartDemo /> },
+      { title: "Data Table", wide: true, demo: <DataTableDemo /> },
+      { title: "Area Chart", wide: true, demo: <AreaChartDemo /> },
+      { title: "Pie Chart", demo: <PieChartDemo /> },
+      { title: "Bar Chart", demo: <BarChartDemo /> },
+      { title: "Line Chart", demo: <LineChartDemo /> },
+      { title: "Radial Chart", demo: <RadialChartDemo /> },
       {
         title: "Accordion",
         demo: (
@@ -993,6 +1006,7 @@ const groups: {
       },
       {
         title: "Carousel",
+        wide: true,
         demo: (
           <Carousel className="w-full max-w-xl">
             <CarouselContent>
@@ -1025,6 +1039,7 @@ const groups: {
       },
       {
         title: "Code Block",
+        wide: true,
         demo: (
           <CodeBlock className="w-full max-w-md">
             <CodeBlockHeader>
@@ -1137,6 +1152,7 @@ const groups: {
     sections: [
       {
         title: "Message",
+        wide: true,
         demo: (
           <div className="flex w-full max-w-md flex-col gap-4">
             <Message align="end">
@@ -1165,6 +1181,7 @@ const groups: {
       },
       {
         title: "Bubble",
+        wide: true,
         demo: (
           <div className="flex w-full max-w-md flex-col gap-6">
             <div className="flex flex-wrap gap-2">
@@ -1228,6 +1245,7 @@ const groups: {
       },
       {
         title: "Trace",
+        wide: true,
         demo: (
           <Trace className="w-full max-w-md">
             <TraceLine>
@@ -1294,6 +1312,7 @@ const groups: {
       },
       {
         title: "Message Scroller",
+        wide: true,
         demo: (
           <Card className="h-64 w-full max-w-md">
             <CardContent className="min-h-0 flex-1">
@@ -1367,6 +1386,7 @@ const groups: {
       },
       {
         title: "Resizable",
+        wide: true,
         demo: (
           <Card className="w-full max-w-md">
             <CardContent>
@@ -1437,28 +1457,35 @@ export default function KitchenSink() {
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        <main className="flex flex-col gap-16 p-6 md:p-10">
+        <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 p-6 md:p-10">
           {groups.map((group) => (
             <div
               key={group.title}
               id={slug(group.title)}
-              className="flex scroll-mt-20 flex-col gap-10"
+              className="flex scroll-mt-20 flex-col gap-6"
             >
               <h2 className="font-heading text-3xl font-bold tracking-tight">
                 {group.title}
               </h2>
-              {group.sections.map((section) => (
-                <section
-                  key={section.title}
-                  id={slug(section.title)}
-                  className="flex scroll-mt-20 flex-col items-start gap-4"
-                >
-                  <h3 className="text-sm font-medium text-muted-foreground">
-                    {section.title}
-                  </h3>
-                  {section.demo}
-                </section>
-              ))}
+              <div className="grid grid-flow-dense gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {group.sections.map((section) => (
+                  <section
+                    key={section.title}
+                    id={slug(section.title)}
+                    className={cn(
+                      "flex min-w-0 scroll-mt-20 flex-col rounded-2xl border bg-card",
+                      section.wide && "md:col-span-2"
+                    )}
+                  >
+                    <h3 className="px-5 pt-4 text-sm font-medium text-muted-foreground">
+                      {section.title}
+                    </h3>
+                    <div className="flex min-h-40 flex-1 flex-col items-center justify-center gap-4 p-5">
+                      {section.demo}
+                    </div>
+                  </section>
+                ))}
+              </div>
             </div>
           ))}
         </main>
