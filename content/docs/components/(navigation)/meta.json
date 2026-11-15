@@ -1,0 +1,12 @@
+{
+  "title": "Navigation",
+  "defaultOpen": true,
+  "pages": [
+    "tabs",
+    "navigation-menu",
+    "menubar",
+    "breadcrumb",
+    "pagination",
+    "sidebar"
+  ]
+}

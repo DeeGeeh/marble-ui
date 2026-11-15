@@ -8,15 +8,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary gloss [--lip:color-mix(in_oklch,var(--primary),black_30%)] text-primary-foreground shadow-key hover:bg-primary/90 active:shadow-key-pressed",
+          "bg-primary gloss text-primary-foreground shadow-key [--lip:color-mix(in_oklch,var(--primary),black_30%)] hover:bg-primary/90 active:shadow-key-pressed",
         outline:
-          "border-border bg-card gloss [--gloss-strength:0.5] [--lip:color-mix(in_oklch,var(--border),var(--foreground)_12%)] shadow-key hover:bg-muted hover:text-foreground active:shadow-key-pressed aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input",
+          "border-border bg-card gloss shadow-key [--gloss-strength:0.5] [--lip:color-mix(in_oklch,var(--border),var(--foreground)_12%)] hover:bg-muted hover:text-foreground active:shadow-key-pressed aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input",
         secondary:
-          "bg-secondary gloss [--gloss-strength:0.5] [--lip:color-mix(in_oklch,var(--secondary),var(--foreground)_15%)] text-secondary-foreground shadow-key hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] active:shadow-key-pressed aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+          "bg-secondary gloss text-secondary-foreground shadow-key [--gloss-strength:0.5] [--lip:color-mix(in_oklch,var(--secondary),var(--foreground)_15%)] hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] active:shadow-key-pressed aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:
-          "bg-destructive-solid gloss [--lip:color-mix(in_oklch,var(--destructive-solid),black_30%)] text-white shadow-key hover:bg-destructive-solid/90 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 active:shadow-key-pressed dark:focus-visible:ring-destructive/40",
+          "bg-destructive-solid gloss text-white shadow-key [--lip:color-mix(in_oklch,var(--destructive-solid),black_30%)] hover:bg-destructive-solid/90 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 active:shadow-key-pressed dark:focus-visible:ring-destructive/40",
         link: "text-primary-text underline-offset-4 hover:underline",
       },
       size: {

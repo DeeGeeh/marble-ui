@@ -1,0 +1,51 @@
+---
+title: Installation
+description: Add Marble UI to a Next.js app with Tailwind v4 and shadcn.
+---
+
+<Steps>
+<Step>
+
+### Set up shadcn
+
+In a Next.js app with Tailwind v4, initialise shadcn if you haven't yet.
+
+<InstallCommand args="init" />
+
+</Step>
+<Step>
+
+### Add the kit
+
+Install everything at once, or add components one by one from their pages; each brings the theme along. The theme merges its tokens, materials and motion straight into your `app/globals.css`, replacing the defaults `shadcn init` wrote.
+
+<InstallCommand items={["marble-kit"]} />
+
+</Step>
+<Step>
+
+### Fonts and theme provider
+
+Load Geist, Geist Mono and Bricolage Grotesque as `--font-sans`, `--font-mono` and `--font-display`, and wrap the app in `ThemeProvider` (press <kbd>D</kbd> to toggle dark mode).
+
+```tsx title="app/layout.tsx"
+import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google"
+import { ThemeProvider } from "@/components/theme-provider"
+
+const sans = Geist({ subsets: ["latin"], variable: "--font-sans" })
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
+const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display" })
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${mono.variable} ${display.variable}`}>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
+    </html>
+  )
+}
+```
+
+</Step>
+</Steps>

@@ -1,0 +1,13 @@
+{
+  "title": "Chat",
+  "defaultOpen": true,
+  "pages": [
+    "agent-chat",
+    "message",
+    "bubble",
+    "marker",
+    "trace",
+    "attachment",
+    "message-scroller"
+  ]
+}

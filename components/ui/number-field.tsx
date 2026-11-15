@@ -13,7 +13,6 @@ import { Label } from "@/components/ui/label"
 
 const NumberFieldContext = React.createContext<{ fieldId: string } | null>(null)
 
-/** Numeric input with steppers; drag the label (NumberFieldScrubArea) to scrub the value. */
 function NumberField({
   id,
   className,
@@ -33,7 +32,6 @@ function NumberField({
   )
 }
 
-/** The recessed field: decrement, input and increment in one well. */
 function NumberFieldGroup({
   className,
   ...props
@@ -99,7 +97,6 @@ function NumberFieldInput({
   )
 }
 
-/** A label you can drag sideways to change the value. */
 function NumberFieldScrubArea({
   className,
   label,

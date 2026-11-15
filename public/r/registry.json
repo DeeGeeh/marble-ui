@@ -18,7 +18,7 @@
     },
     {
       "name": "marble-theme",
-      "type": "registry:item",
+      "type": "registry:theme",
       "title": "Marble theme",
       "description": "Tokens, materials, motion and base styles, plus the theme provider (d toggles dark mode).",
       "dependencies": [
@@ -30,18 +30,358 @@
       "registryDependencies": [
         "https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/utils.json"
       ],
-      "files": [
-        {
-          "path": "app/marble.css",
-          "type": "registry:file",
-          "target": "app/marble.css"
+      "cssVars": {
+        "theme": {
+          "ease-out": "cubic-bezier(0.23, 1, 0.32, 1)",
+          "ease-in-out": "cubic-bezier(0.77, 0, 0.175, 1)",
+          "ease-drawer": "cubic-bezier(0.32, 0.72, 0, 1)",
+          "ease-overshoot": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+          "default-transition-timing-function": "var(--ease-out)",
+          "z-index-raised": "10",
+          "z-index-pinned": "20",
+          "z-index-sticky": "30",
+          "z-index-floating": "40",
+          "z-index-overlay": "50",
+          "animate-spinner-morph": "spinner-morph 2.8s infinite",
+          "animate-skeleton-sweep": "skeleton-sweep 1.8s ease-in-out infinite",
+          "animate-skeleton-reveal": "skeleton-reveal 0.3s var(--ease-drawer)",
+          "font-heading": "var(--font-display)",
+          "font-sans": "var(--font-sans)",
+          "color-sidebar-ring": "var(--sidebar-ring)",
+          "color-sidebar-border": "var(--sidebar-border)",
+          "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
+          "color-sidebar-accent": "var(--sidebar-accent)",
+          "color-sidebar-primary-foreground": "var(--sidebar-primary-foreground)",
+          "color-sidebar-primary": "var(--sidebar-primary)",
+          "color-sidebar-foreground": "var(--sidebar-foreground)",
+          "color-sidebar": "var(--sidebar)",
+          "color-chart-5": "var(--chart-5)",
+          "color-chart-4": "var(--chart-4)",
+          "color-chart-3": "var(--chart-3)",
+          "color-chart-2": "var(--chart-2)",
+          "color-chart-1": "var(--chart-1)",
+          "color-ring": "var(--ring)",
+          "color-input": "var(--input)",
+          "color-border": "var(--border)",
+          "color-destructive": "var(--destructive)",
+          "color-destructive-solid": "var(--destructive-solid)",
+          "color-accent-foreground": "var(--accent-foreground)",
+          "color-accent": "var(--accent)",
+          "color-muted-foreground": "var(--muted-foreground)",
+          "color-muted": "var(--muted)",
+          "color-secondary-foreground": "var(--secondary-foreground)",
+          "color-secondary": "var(--secondary)",
+          "color-primary-foreground": "var(--primary-foreground)",
+          "color-primary": "var(--primary)",
+          "color-primary-text": "var(--primary-text)",
+          "color-popover-foreground": "var(--popover-foreground)",
+          "color-popover": "var(--popover)",
+          "color-card-foreground": "var(--card-foreground)",
+          "color-card": "var(--card)",
+          "color-foreground": "var(--foreground)",
+          "color-background": "var(--background)",
+          "radius-sm": "calc(var(--radius) * 0.6)",
+          "radius-md": "calc(var(--radius) * 0.8)",
+          "radius-lg": "var(--radius)",
+          "radius-xl": "calc(var(--radius) * 1.4)",
+          "radius-2xl": "calc(var(--radius) * 1.8)",
+          "radius-3xl": "calc(var(--radius) * 2.2)",
+          "radius-4xl": "calc(var(--radius) * 2.6)",
+          "shadow-stone": "inset 0 1px 0 var(--highlight), inset 0 -2px 0 var(--edge),\n    0 1px 2px var(--drop), 0 2px 6px -3px var(--drop)",
+          "shadow-key": "inset 0 1px 0 var(--highlight), inset 0 -1px 0 var(--edge),\n    0 3px 0 var(--lip, var(--edge)), 0 5px 10px -4px var(--drop)",
+          "shadow-key-pressed": "inset 0 1px 2px var(--edge), 0 1px 0 var(--lip, var(--edge))",
+          "inset-shadow-seam-x": "inset 1px 0 0 var(--edge), inset 2px 0 0 var(--highlight)",
+          "inset-shadow-seam-y": "inset 0 1px 0 var(--edge), inset 0 2px 0 var(--highlight)",
+          "shadow-chip": "inset 0 1px 0 var(--highlight), inset 0 -1px 0 var(--edge),\n    0 1px 2px var(--drop)",
+          "drop-shadow-chip": "0 1px 0 var(--edge), 0 1px 2px var(--drop)",
+          "shadow-well": "inset 0 1px 2px var(--edge), 0 1px 0 var(--highlight)",
+          "shadow-slab": "0 0 0 1px var(--edge), 0 3px 0 -1px var(--edge),\n    0 10px 24px -14px var(--drop)",
+          "shadow-sm": "0 0 0 1px var(--edge), 0 2px 4px -2px var(--drop)",
+          "shadow-md": "0 0 0 1px var(--edge), 0 3px 0 -1px var(--edge),\n    0 12px 28px -12px var(--drop)",
+          "shadow-lg": "0 0 0 1px var(--edge), 0 4px 0 -1px var(--edge),\n    0 24px 48px -16px var(--drop)",
+          "shadow-xl": "var(--shadow-lg)"
         },
+        "light": {
+          "ease-out": "cubic-bezier(0.23, 1, 0.32, 1)",
+          "ease-drawer": "cubic-bezier(0.32, 0.72, 0, 1)",
+          "ease-overshoot": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+          "shadow-lg": "0 0 0 1px var(--edge), 0 4px 0 -1px var(--edge),\n    0 24px 48px -16px var(--drop)",
+          "hue": "165",
+          "chroma": "0.07",
+          "tint": "80",
+          "background": "oklch(0.97 0.003 var(--tint))",
+          "foreground": "oklch(0.24 0.008 var(--tint))",
+          "card": "oklch(0.994 0.002 var(--tint))",
+          "card-foreground": "var(--foreground)",
+          "popover": "var(--card)",
+          "popover-foreground": "var(--foreground)",
+          "primary": "oklch(0.5 var(--chroma) var(--hue))",
+          "primary-text": "var(--primary)",
+          "primary-foreground": "oklch(0.99 0.004 var(--hue))",
+          "secondary": "var(--card)",
+          "secondary-foreground": "var(--foreground)",
+          "muted": "oklch(0.945 0.004 var(--tint))",
+          "muted-foreground": "oklch(0.52 0.01 var(--tint))",
+          "accent": "oklch(0.94 calc(var(--chroma) * 0.25) var(--hue))",
+          "accent-foreground": "var(--foreground)",
+          "destructive": "oklch(0.5 0.14 25)",
+          "destructive-solid": "oklch(0.5 0.14 25)",
+          "border": "oklch(0.9 0.005 var(--tint))",
+          "input": "oklch(0.875 0.006 var(--tint))",
+          "ring": "oklch(0.65 var(--chroma) var(--hue))",
+          "chart-1": "var(--primary)",
+          "chart-2": "oklch(0.74 0.1 78)",
+          "chart-3": "oklch(0.3 0.008 var(--tint))",
+          "chart-4": "oklch(0.84 calc(var(--chroma) * 0.7) var(--hue))",
+          "chart-5": "oklch(0.62 0.01 var(--tint))",
+          "radius": "0.75rem",
+          "sidebar": "oklch(0.945 0.004 var(--tint))",
+          "sidebar-foreground": "var(--foreground)",
+          "sidebar-primary": "var(--primary)",
+          "sidebar-primary-foreground": "var(--primary-foreground)",
+          "sidebar-accent": "var(--accent)",
+          "sidebar-accent-foreground": "var(--foreground)",
+          "sidebar-border": "var(--border)",
+          "sidebar-ring": "var(--ring)",
+          "highlight": "oklch(1 0 0 / 0.9)",
+          "edge": "oklch(0.3 0.01 var(--tint) / 0.18)",
+          "drop": "oklch(0.25 0.01 var(--tint) / 0.14)",
+          "sheen": "oklch(1 0 0 / 0.55)",
+          "shade": "oklch(0 0 0 / 0.18)",
+          "skeleton-sheen": "oklch(1 0 0 / 0.7)",
+          "bounce": "oklch(1 0 0 / 0.14)",
+          "vein": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='v' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0022 0.006' numOctaves='6' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.53 0 0 0 0 0.5 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 0 0 0 0 0 0.035 0 0 0 0 0 0 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3CfeGaussianBlur stdDeviation='1.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23v%29'/%3E%3C/svg%3E\")",
+          "vein-fine": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='v' x='-50%25' y='-50%25' width='200%25' height='200%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0025 0.02' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.53 0 0 0 0 0.5 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.049 0.14 0.049 0 0 0 0 0 0 0 0 0 0 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3CfeGaussianBlur stdDeviation='0.5'/%3E%3C/filter%3E%3Cg transform='rotate%28-28 300 300%29'%3E%3Crect x='-300' y='-300' width='1200' height='1200' filter='url%28%23v%29'/%3E%3C/g%3E%3C/svg%3E\")"
+        },
+        "dark": {
+          "background": "oklch(0.19 0.004 var(--tint))",
+          "foreground": "oklch(0.95 0.003 var(--tint))",
+          "card": "oklch(0.225 0.005 var(--tint))",
+          "popover": "oklch(0.245 0.005 var(--tint))",
+          "primary": "oklch(0.52 var(--chroma) var(--hue))",
+          "primary-text": "oklch(0.76 var(--chroma) var(--hue))",
+          "primary-foreground": "oklch(0.99 0.004 var(--hue))",
+          "secondary": "oklch(0.25 0.005 var(--tint))",
+          "muted": "oklch(0.26 0.005 var(--tint))",
+          "muted-foreground": "oklch(0.7 0.008 var(--tint))",
+          "accent": "oklch(0.3 calc(var(--chroma) * 0.3) var(--hue))",
+          "destructive": "oklch(0.74 0.12 25)",
+          "destructive-solid": "oklch(0.5 0.13 25)",
+          "border": "oklch(1 0 0 / 9%)",
+          "input": "oklch(1 0 0 / 13%)",
+          "ring": "oklch(0.62 var(--chroma) var(--hue))",
+          "chart-2": "oklch(0.78 0.1 78)",
+          "chart-3": "oklch(0.92 0.006 var(--tint))",
+          "chart-4": "oklch(0.36 calc(var(--chroma) * 0.7) var(--hue))",
+          "chart-5": "oklch(0.56 0.01 var(--tint))",
+          "sidebar": "oklch(0.16 0.004 var(--tint))",
+          "highlight": "oklch(1 0 0 / 0.3)",
+          "edge": "oklch(0 0 0 / 0.4)",
+          "drop": "oklch(0 0 0 / 0.35)",
+          "sheen": "oklch(1 0 0 / 0.3)",
+          "shade": "oklch(0 0 0 / 0.4)",
+          "skeleton-sheen": "oklch(1 0 0 / 0.06)",
+          "bounce": "oklch(1 0 0 / 0.08)",
+          "vein": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='v' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0022 0.006' numOctaves='6' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.8 0 0 0 0 0.78 0 0 0 0 0.75 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 0 0 0 0 0 0.014 0 0 0 0 0 0 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3CfeGaussianBlur stdDeviation='1.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23v%29'/%3E%3C/svg%3E\")",
+          "vein-fine": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='v' x='-50%25' y='-50%25' width='200%25' height='200%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0025 0.02' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.85 0 0 0 0 0.83 0 0 0 0 0.8 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.014 0.04 0.014 0 0 0 0 0 0 0 0 0 0 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3CfeGaussianBlur stdDeviation='0.5'/%3E%3C/filter%3E%3Cg transform='rotate%28-28 300 300%29'%3E%3Crect x='-300' y='-300' width='1200' height='1200' filter='url%28%23v%29'/%3E%3C/g%3E%3C/svg%3E\")"
+        }
+      },
+      "css": {
+        "@keyframes skeleton-sweep": {
+          "0%": {
+            "translate": "-100% 0"
+          },
+          "90%,\n    100%": {
+            "translate": "100% 0"
+          }
+        },
+        "@keyframes skeleton-reveal": {
+          "from": {
+            "opacity": "0",
+            "translate": "0 6px",
+            "filter": "blur(4px)"
+          }
+        },
+        "@keyframes spinner-morph": {
+          "0%": {
+            "border-radius": "50%",
+            "scale": "1",
+            "rotate": "0deg",
+            "animation-timing-function": "var(--ease-out)"
+          },
+          "8%": {
+            "border-radius": "50%",
+            "scale": "0.78",
+            "rotate": "0deg",
+            "animation-timing-function": "var(--ease-overshoot)"
+          },
+          "25%": {
+            "border-radius": "12%",
+            "scale": "1",
+            "rotate": "0deg",
+            "animation-timing-function": "var(--ease-out)"
+          },
+          "33%": {
+            "border-radius": "12%",
+            "scale": "0.78",
+            "rotate": "0deg",
+            "animation-timing-function": "var(--ease-overshoot)"
+          },
+          "50%": {
+            "border-radius": "12%",
+            "scale": "0.86",
+            "rotate": "45deg",
+            "animation-timing-function": "var(--ease-out)"
+          },
+          "58%": {
+            "border-radius": "12%",
+            "scale": "0.7",
+            "rotate": "45deg",
+            "animation-timing-function": "var(--ease-overshoot)"
+          },
+          "75%": {
+            "border-radius": "50% 4% 50% 4%",
+            "scale": "1",
+            "rotate": "0deg",
+            "animation-timing-function": "var(--ease-out)"
+          },
+          "83%": {
+            "border-radius": "50% 4% 50% 4%",
+            "scale": "0.78",
+            "rotate": "0deg",
+            "animation-timing-function": "var(--ease-overshoot)"
+          },
+          "100%": {
+            "border-radius": "50%",
+            "scale": "1",
+            "rotate": "0deg"
+          }
+        },
+        "@utility rim": {
+          "&::before": {
+            "content": "\"\"",
+            "pointer-events": "none",
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "1",
+            "border-radius": "inherit",
+            "border": "1px solid var(--highlight)",
+            "mask-image": "linear-gradient(to bottom, #000, transparent 2.5rem)"
+          }
+        },
+        "@utility rim-none": {
+          "&::before": {
+            "display": "none"
+          }
+        },
+        "@layer components": {
+          "[data-slot=\"chart\"]\n    :is(\n      .recharts-bar-rectangle .recharts-rectangle,\n      .recharts-pie-sector .recharts-sector,\n      .recharts-radial-bar-sector\n    )": {
+            "filter": "var(--chart-gloss) drop-shadow(0 2px 0 var(--edge))\n      drop-shadow(0 3px 3px var(--drop))"
+          },
+          "[data-slot=\"chart\"] .recharts-area-area": {
+            "filter": "var(--chart-marble)"
+          },
+          "[data-slot=\"chart\"] :is(.recharts-line-curve, .recharts-area-curve)": {
+            "stroke-linecap": "round",
+            "filter": "drop-shadow(0 2px 0 var(--edge))"
+          }
+        },
+        "@utility gloss-sheen": {
+          "--gloss-reflection": "linear-gradient(\n    115deg,\n    transparent 14%,\n    color-mix(\n        in oklch,\n        var(--sheen) calc(50% * var(--gloss-strength, 1)),\n        transparent\n      )\n      25%,\n    color-mix(\n        in oklch,\n        var(--sheen) calc(12% * var(--gloss-strength, 1)),\n        transparent\n      )\n      37%,\n    transparent 42%\n  )",
+          "background-image": "var(--gloss-reflection)"
+        },
+        "@utility gloss": {
+          "@apply gloss-sheen": {},
+          "background-image": "var(--gloss-streak, var(--gloss-reflection)),\n    linear-gradient(to bottom, transparent 50%, var(--shade) 90%, var(--bounce))"
+        },
+        "@utility marble": {
+          "background-image": "var(--vein)"
+        },
+        "@utility marble-fine": {
+          "background-image": "var(--vein-fine)"
+        },
+        "@layer base": {
+          "::-webkit-scrollbar": {
+            "width": "12px",
+            "height": "12px"
+          },
+          "::-webkit-scrollbar-track": {
+            "background": "transparent"
+          },
+          "::-webkit-scrollbar-track:vertical": {
+            "margin-block": "var(--scrollbar-offset-top, 0.5rem) 0.5rem"
+          },
+          "::-webkit-scrollbar-track:horizontal": {
+            "margin-inline": "0.5rem"
+          },
+          "::-webkit-scrollbar-thumb": {
+            "border": "3px solid transparent",
+            "border-radius": "9999px",
+            "background-clip": "padding-box",
+            "background-color": "color-mix(in oklch, var(--foreground) 20%, transparent)"
+          },
+          "::-webkit-scrollbar-thumb:hover": {
+            "background-color": "color-mix(in oklch, var(--foreground) 35%, transparent)"
+          },
+          "::-webkit-scrollbar-corner": {
+            "background": "transparent"
+          },
+          "@supports not selector(::-webkit-scrollbar)": {
+            "*": {
+              "scrollbar-width": "thin",
+              "scrollbar-color": "color-mix(in oklch, var(--foreground) 25%, transparent)\n        transparent"
+            }
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            "*": {
+              "--tw-enter-scale": "1 !important",
+              "--tw-exit-scale": "1 !important",
+              "--tw-enter-translate-x": "0 !important",
+              "--tw-enter-translate-y": "0 !important",
+              "--tw-exit-translate-x": "0 !important",
+              "--tw-exit-translate-y": "0 !important",
+              "scroll-behavior": "auto !important"
+            },
+            ":is([data-starting-style], [data-ending-style])": {
+              "scale": "1 !important"
+            },
+            "[data-side]:is([data-starting-style], [data-ending-style])": {
+              "translate": "none !important"
+            },
+            "[data-slot=\"sheet-content\"],\n    [data-slot=\"drawer-popup\"]": {
+              "transition-property": "opacity !important"
+            },
+            "[data-slot=\"sheet-content\"]:is([data-starting-style], [data-ending-style])": {
+              "translate": "none !important"
+            },
+            "[data-slot=\"drawer-popup\"]:is([data-starting-style], [data-ending-style])": {
+              "transform": "none !important",
+              "opacity": "0 !important"
+            },
+            "[data-slot=\"sidebar-gap\"],\n    [data-slot=\"sidebar-container\"]": {
+              "transition": "none !important"
+            }
+          },
+          "*": {
+            "@apply border-border outline-ring/50": {}
+          },
+          "body": {
+            "@apply bg-background marble text-foreground": {}
+          },
+          "html": {
+            "@apply font-sans": {},
+            "interpolate-size": "allow-keywords",
+            "-webkit-tap-highlight-color": "transparent"
+          }
+        }
+      },
+      "files": [
         {
           "path": "components/theme-provider.tsx",
           "type": "registry:component"
         }
       ],
-      "docs": "Replace app/globals.css with: @import \"tailwindcss\"; @import \"tw-animate-css\"; @import \"shadcn/tailwind.css\"; @import \"./marble.css\"; (theme vars left by shadcn init would override Marble). Load Geist, Geist Mono and Bricolage Grotesque as --font-sans, --font-mono and --font-display, and wrap the app in <ThemeProvider>."
+      "docs": "Load Geist, Geist Mono and Bricolage Grotesque as --font-sans, --font-mono and --font-display, and wrap the app in <ThemeProvider>."
     },
     {
       "name": "use-mobile",

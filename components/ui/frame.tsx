@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils"
 
-/** A recessed marble tray (the band material of card and dialog footers) holding raised panels: for grouping related surfaces. */
 function Frame({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div

@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "components/ui/spinner.tsx",
-      "content": "import { cn } from \"@/lib/utils\"\n\n/** Glossy pebble that squishes, reshapes and overshoots. Sizes with font-size, colors with currentColor. */\nfunction Spinner({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      data-slot=\"spinner\"\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\n        \"relative inline-block size-[1em] shrink-0 align-middle\",\n        className\n      )}\n      {...props}\n    >\n      <span className=\"absolute inset-[10%] animate-spinner-morph bg-current bg-[radial-gradient(circle_at_32%_26%,oklch(1_0_0/0.75),oklch(1_0_0/0.15)_22%,transparent_45%)] shadow-[inset_0_-0.08em_0.12em_oklch(0_0_0/0.35)] motion-reduce:animate-none\" />\n    </span>\n  )\n}\n\nexport { Spinner }\n",
+      "content": "import { cn } from \"@/lib/utils\"\n\nfunction Spinner({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      data-slot=\"spinner\"\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\n        \"relative inline-block size-[1em] shrink-0 align-middle\",\n        className\n      )}\n      {...props}\n    >\n      <span className=\"absolute inset-[10%] animate-spinner-morph bg-current bg-[radial-gradient(circle_at_32%_26%,oklch(1_0_0/0.75),oklch(1_0_0/0.15)_22%,transparent_45%)] shadow-[inset_0_-0.08em_0.12em_oklch(0_0_0/0.35)] motion-reduce:animate-none\" />\n    </span>\n  )\n}\n\nexport { Spinner }\n",
       "type": "registry:ui"
     }
   ],

@@ -42,7 +42,7 @@ function MessageScrollerViewport({
     <MessageScrollerPrimitive.Viewport
       data-slot="message-scroller-viewport"
       className={cn(
-        "size-full min-h-0 min-w-0 scroll-fade-y scroll-fade-12 scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-pending-scroll:invisible",
+        "size-full min-h-0 min-w-0 scroll-fade-y scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content scroll-fade-12 data-pending-scroll:invisible",
         className
       )}
       {...props}

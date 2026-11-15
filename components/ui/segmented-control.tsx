@@ -5,10 +5,6 @@ import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
 import { cn } from "@/lib/utils"
 
-// A single-choice switch with the tabs' gliding slab. It owns no state: render it as a Base UI ToggleGroup or
-// RadioGroup (`render={<ToggleGroup />}`) and the slab follows whichever child is pressed, checked or current.
-// Measuring adapted from coss ui's SegmentedControl.
-
 function SegmentedControl({
   className,
   children,
@@ -49,7 +45,6 @@ function SegmentedControlItem({
       {
         className: cn(
           "relative inline-flex h-[calc(--spacing(9)-7px)] flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-md px-2.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-colors outline-none select-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-          // the active item: text lights up; until the slab has measured, it carries the slab look itself
           "aria-[current=page]:text-foreground data-pressed:text-foreground dark:aria-[current=page]:text-foreground dark:data-pressed:text-foreground data-checked:text-foreground dark:data-checked:text-foreground",
           "not-in-data-[indicator=ready]:data-pressed:bg-card not-in-data-[indicator=ready]:data-pressed:gloss not-in-data-[indicator=ready]:data-pressed:shadow-stone not-in-data-[indicator=ready]:data-checked:bg-card not-in-data-[indicator=ready]:data-checked:gloss not-in-data-[indicator=ready]:data-checked:shadow-stone",
           className

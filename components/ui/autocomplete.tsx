@@ -11,7 +11,6 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group"
 
-// Free text with suggestions. Same anatomy and look as Combobox, but the value is whatever is typed.
 const Autocomplete = AutocompletePrimitive.Root
 const AutocompleteCollection = AutocompletePrimitive.Collection
 const useAutocompleteFilter = AutocompletePrimitive.useFilter
@@ -23,14 +22,12 @@ function AutocompleteInput({
   ...props
 }: AutocompletePrimitive.Input.Props & { showClear?: boolean }) {
   return (
-    // the group is the popup's anchor, so the list lines up with the whole field
     <AutocompletePrimitive.InputGroup
       render={<InputGroup className={cn("w-auto", className)} />}
     >
       <AutocompletePrimitive.Input render={<InputGroupInput />} {...props} />
       {showClear && (
         <InputGroupAddon align="inline-end">
-          {/* kept mounted and only hidden while empty, so typing doesn't widen the field */}
           <AutocompletePrimitive.Clear
             data-slot="autocomplete-clear"
             keepMounted
@@ -69,7 +66,6 @@ function AutocompleteContent({
         anchor={anchor}
         className="isolate z-overlay"
       >
-        {/* no open/close motion: it opens as you type, and keyboard-driven UI should answer instantly */}
         <AutocompletePrimitive.Popup
           data-slot="autocomplete-content"
           className={cn(

@@ -1,4 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "fumadocs-ui/css/shadcn.css";
+@import "fumadocs-ui/css/preset.css";
 @import "./marble.css";
+:root {
+  --site-header-height: 3.5rem;
+  --fd-nav-height: var(--site-header-height);
+}
+@utility not-prose {
+  --not-prose: 1;
+}

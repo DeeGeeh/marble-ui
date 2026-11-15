@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "lib/utils.ts",
-      "content": "import { createCn } from \"cn/config\"\n\n// Teach class merging our custom theme shadows (globals.css) so `shadow-none` can override `shadow-well` etc.\nexport const cn = createCn({\n  extend: {\n    theme: { shadow: [\"stone\", \"key\", \"key-pressed\", \"well\", \"slab\", \"chip\"] },\n  },\n})\n",
+      "content": "import { createCn } from \"cn/config\"\n\nexport const cn = createCn({\n  extend: {\n    theme: { shadow: [\"stone\", \"key\", \"key-pressed\", \"well\", \"slab\", \"chip\"] },\n  },\n})\n",
       "type": "registry:lib"
     }
   ],

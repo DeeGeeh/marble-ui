@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils"
 
-/** Carved placeholder block with a slow diagonal light sweep. Size it with className. */
 function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -47,7 +46,6 @@ function SkeletonAvatar({ className }: { className?: string }) {
   return <Skeleton className={cn("size-10 shrink-0 rounded-full", className)} />
 }
 
-/** Shows `skeleton` while loading, then eases the real content in (fade, rise, un-blur). */
 function SkeletonReveal({
   loading,
   skeleton,

@@ -40,7 +40,7 @@ const itemVariants = cva(
     variants: {
       variant: {
         default: "border-transparent",
-        outline: "relative border-transparent bg-card rim shadow-slab",
+        outline: "rim relative border-transparent bg-card shadow-slab",
         muted: "border-transparent bg-muted shadow-well",
       },
       size: {

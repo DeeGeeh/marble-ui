@@ -3,7 +3,6 @@
 import { Meter as MeterPrimitive } from "@base-ui/react/meter"
 import { cn } from "@/lib/utils"
 
-/** A static measurement within a known range (disk use, quota). For task progress use Progress. */
 function Meter({ className, children, ...props }: MeterPrimitive.Root.Props) {
   return (
     <MeterPrimitive.Root

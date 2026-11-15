@@ -24,7 +24,6 @@ function ThemeProvider({
 
 function ThemeHotkey() {
   const { resolvedTheme, setTheme } = useTheme()
-  // plain "d" only; ignored while typing in form fields (library default)
   useHotkeys("d", () => setTheme(resolvedTheme === "dark" ? "light" : "dark"))
   return null
 }

@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils"
 import * as RechartsPrimitive from "recharts"
 import type { TooltipValueType } from "recharts"
 
-// Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
 
 const INITIAL_DIMENSION = { width: 320, height: 200 } as const
@@ -60,7 +59,6 @@ function ChartContainer({
   const uniqueId = React.useId()
   const chartId = `chart-${id ?? uniqueId.replace(/:/g, "")}`
 
-  // area fills reuse the band texture (--vein-fine, marble.css); it differs per theme, so re-read on switch
   const veinRef = React.useRef<SVGFEImageElement>(null)
   const { resolvedTheme } = useTheme()
   React.useEffect(() => {
@@ -89,7 +87,6 @@ function ChartContainer({
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
-        {/* gloss: a soft specular sheen lit from the top-left, in each mark's own colour */}
         <svg aria-hidden className="pointer-events-none absolute size-0">
           <filter
             id={`${chartId}-gloss`}
@@ -123,7 +120,6 @@ function ChartContainer({
               k3="0.5"
             />
           </filter>
-          {/* marble: the band texture, tiled, clipped to a fill and fading with it */}
           <filter
             id={`${chartId}-marble`}
             x="0"

@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils"
 
-/** Glossy pebble that squishes, reshapes and overshoots. Sizes with font-size, colors with currentColor. */
 function Spinner({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span

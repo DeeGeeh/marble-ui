@@ -37,7 +37,6 @@ const tabsListVariants = cva(
   }
 )
 
-// the active marker glides between tabs: a raised slab, or the underline bar
 const indicatorVariants = {
   default:
     "h-(--active-tab-height) w-(--active-tab-width) translate-x-(--active-tab-left) translate-y-(--active-tab-top) rounded-md bg-card gloss shadow-stone dark:bg-input/30 dark:ring-1 dark:ring-input dark:ring-inset",
@@ -61,7 +60,6 @@ function TabsList({
       {...props}
     >
       {children}
-      {/* the active slab: one element that glides between tabs */}
       <TabsPrimitive.Indicator
         data-slot="tabs-indicator"
         renderBeforeHydration

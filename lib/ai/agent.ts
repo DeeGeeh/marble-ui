@@ -12,9 +12,6 @@ import {
 import { MockLanguageModelV4 } from "ai/test"
 import { z } from "zod"
 
-// Demo agent for the kitchen sink: real AI SDK plumbing (streamText, tools, approval, multi-step)
-// driven by a scripted mock model, so it runs without an API key. Swap `model` for a real one to go live.
-
 const STREAM_DELAY_MS = 30
 const TOOL_DELAY_MS = 900
 
@@ -68,7 +65,6 @@ type StreamPart =
     ? P
     : never
 
-/** Scripted turn: think → search docs → offer a deploy (needs approval) → wrap up. */
 const model = new MockLanguageModelV4({
   doStream: async ({ prompt }) => {
     const lastTool = prompt

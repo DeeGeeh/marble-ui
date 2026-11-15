@@ -1,40 +1,100 @@
-// Writes registry.json from the kit's sources; `pnpm registry` then runs `shadcn build` into public/r.
-// Each component's npm and kit dependencies are read from its imports, so this never needs hand edits.
 import { readdirSync, readFileSync, writeFileSync } from "node:fs"
+import postcss from "postcss"
 
-const BASE = "https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r"
-const url = (name) => `${BASE}/${name}.json`
+import { registryUrl as url, site } from "../lib/site.ts"
 const pkg = JSON.parse(readFileSync("package.json", "utf8"))
 const versions = { ...pkg.dependencies, ...pkg.devDependencies }
 
-// "@base-ui/react/menu" -> "@base-ui/react@^1.9.0"; react and kit-internal paths are skipped
 const npm = (spec) => {
-  const name = spec.split("/").slice(0, spec.startsWith("@") ? 2 : 1).join("/")
+  const name = spec
+    .split("/")
+    .slice(0, spec.startsWith("@") ? 2 : 1)
+    .join("/")
   return versions[name] ? `${name}@${versions[name]}` : name
 }
 
 function depsOf(path) {
-  const specs = [...readFileSync(path, "utf8").matchAll(/from "([^"]+)"|import "([^"]+)"/g)].map(
-    (m) => m[1] ?? m[2]
-  )
+  const specs = [
+    ...readFileSync(path, "utf8").matchAll(/from "([^"]+)"|import "([^"]+)"/g),
+  ].map((m) => m[1] ?? m[2])
   const local = specs.filter((s) => s.startsWith("@/"))
   return {
     dependencies: [
       ...new Set(
-        specs.filter((s) => !s.startsWith("@/") && !s.startsWith(".") && s !== "react").map(npm)
+        specs
+          .filter(
+            (s) => !s.startsWith("@/") && !s.startsWith(".") && s !== "react"
+          )
+          .map(npm)
       ),
     ],
     registryDependencies: [
       url("marble-theme"),
       ...local
         .map((s) =>
-          s.startsWith("@/components/ui/") ? s.slice("@/components/ui/".length)
-          : s === "@/hooks/use-mobile" ? "use-mobile"
-          : null
+          s.startsWith("@/components/ui/")
+            ? s.slice("@/components/ui/".length)
+            : s === "@/hooks/use-mobile"
+              ? "use-mobile"
+              : null
         )
         .filter(Boolean)
         .map(url),
     ],
+  }
+}
+
+function themeFromCss(file) {
+  const toObject = (container) => {
+    const out = {}
+    container.each((node) => {
+      if (node.type === "decl")
+        out[node.prop] = node.important
+          ? `${node.value} !important`
+          : node.value
+      else if (node.type === "rule")
+        out[node.selector] = { ...out[node.selector], ...toObject(node) }
+      else if (node.type === "atrule")
+        out[`@${node.name} ${node.params}`.trim()] = toObject(node)
+    })
+    return out
+  }
+  const vars = (block) =>
+    Object.fromEntries(
+      Object.entries(block)
+        .filter(([k]) => k.startsWith("--"))
+        .map(([k, v]) => [k.slice(2), v])
+    )
+  const pick = (block, prefix) =>
+    Object.fromEntries(
+      Object.entries(block).filter(([k]) => k.startsWith(prefix))
+    )
+  const {
+    ":root": light,
+    ".dark": dark,
+    "@theme": tokens,
+    "@theme inline": inline,
+    ...css
+  } = toObject(postcss.parse(readFileSync(file, "utf8")))
+  for (const key of Object.keys(css))
+    if (key.startsWith("@custom-variant")) delete css[key]
+  const theme = { ...vars(tokens), ...vars(inline) }
+  const rest = { ...pick(tokens, "@keyframes"), ...css }
+  const referenced = new Set(
+    [
+      ...JSON.stringify([theme, light, dark, rest]).matchAll(
+        /var\(--([\w-]+)/g
+      ),
+    ].map(([, name]) => name)
+  )
+  const runtime = Object.fromEntries(
+    Object.entries(theme).filter(
+      ([name, value]) => referenced.has(name) && value !== `var(--${name})`
+    )
+  )
+  return {
+    cssVars: { theme, light: { ...runtime, ...vars(light) }, dark: vars(dark) },
+    css: rest,
   }
 }
 
@@ -51,16 +111,22 @@ const items = [
   },
   {
     name: "marble-theme",
-    type: "registry:item",
+    type: "registry:theme",
     title: "Marble theme",
-    description: "Tokens, materials, motion and base styles, plus the theme provider (d toggles dark mode).",
-    dependencies: ["tw-animate-css", "shadcn", "next-themes", "react-hotkeys-hook"].map(npm),
+    description:
+      "Tokens, materials, motion and base styles, plus the theme provider (d toggles dark mode).",
+    dependencies: [
+      "tw-animate-css",
+      "shadcn",
+      "next-themes",
+      "react-hotkeys-hook",
+    ].map(npm),
     registryDependencies: [url("utils")],
+    ...themeFromCss("app/marble.css"),
     files: [
-      { path: "app/marble.css", type: "registry:file", target: "app/marble.css" },
       { path: "components/theme-provider.tsx", type: "registry:component" },
     ],
-    docs: 'Replace app/globals.css with: @import "tailwindcss"; @import "tw-animate-css"; @import "shadcn/tailwind.css"; @import "./marble.css"; (theme vars left by shadcn init would override Marble). Load Geist, Geist Mono and Bricolage Grotesque as --font-sans, --font-mono and --font-display, and wrap the app in <ThemeProvider>.',
+    docs: "Load Geist, Geist Mono and Bricolage Grotesque as --font-sans, --font-mono and --font-display, and wrap the app in <ThemeProvider>.",
   },
   {
     name: "use-mobile",
@@ -89,7 +155,7 @@ writeFileSync(
     {
       $schema: "https://ui.shadcn.com/schema/registry.json",
       name: "marble-ui",
-      homepage: "https://github.com/DeeGeeh/marble-ui",
+      homepage: site.repo,
       items,
     },
     null,

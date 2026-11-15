@@ -13,7 +13,6 @@ import { createContext, use, useId } from "react"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-// Blossom links its controls to the track by id; the root shares one so callers never wire ids.
 const CarouselId = createContext("")
 
 function Carousel({ className, ...props }: React.ComponentProps<"div">) {

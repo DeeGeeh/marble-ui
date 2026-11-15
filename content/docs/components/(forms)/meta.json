@@ -1,0 +1,26 @@
+{
+  "title": "Forms",
+  "defaultOpen": true,
+  "pages": [
+    "field",
+    "form",
+    "input",
+    "number-field",
+    "input-group",
+    "input-otp",
+    "textarea",
+    "select",
+    "native-select",
+    "combobox",
+    "autocomplete",
+    "checkbox",
+    "checkbox-group",
+    "radio-group",
+    "segmented-control",
+    "switch",
+    "slider",
+    "calendar",
+    "date-picker",
+    "questionnaire"
+  ]
+}

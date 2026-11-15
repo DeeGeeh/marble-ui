@@ -47,7 +47,6 @@ function DialogContent({
   ...props
 }: DialogPrimitive.Popup.Props & {
   showCloseButton?: boolean
-  /** Appear and disappear without animation, for surfaces opened from the keyboard. */
   instant?: boolean
 }) {
   return (

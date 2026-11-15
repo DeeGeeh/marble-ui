@@ -3,7 +3,6 @@
 import { Toolbar as ToolbarPrimitive } from "@base-ui/react/toolbar"
 import { cn } from "@/lib/utils"
 
-/** A raised bar of controls with arrow-key navigation. Render kit controls into the parts, e.g. `<ToolbarButton render={<Button variant="ghost" />} />`. */
 function Toolbar({ className, ...props }: ToolbarPrimitive.Root.Props) {
   return (
     <ToolbarPrimitive.Root

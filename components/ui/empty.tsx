@@ -39,7 +39,6 @@ const emptyMediaVariants = cva(
   }
 )
 
-// one glossy stone tile; the icon variant fans two blank ones out behind it
 const tile =
   "flex size-11 items-center justify-center rounded-lg bg-card shadow-stone text-foreground [&_svg:not([class*='size-'])]:size-5"
 

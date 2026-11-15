@@ -1,0 +1,33 @@
+---
+title: Theming
+description: One stylesheet holds every token, material and curve.
+---
+
+Adding the theme merges everything into your `app/globals.css`: the colour tokens into `:root` and `.dark`, the rest into `@theme inline`, plus the material utilities and base styles. Change a token there and the whole kit follows.
+
+## Colour
+
+The accent comes from three numbers: `--hue` and `--chroma` set the verde, `--tint` warms the stone neutrals. Swap the hue to move the whole kit to another marble.
+
+```css
+:root {
+  --hue: 165;
+  --chroma: 0.07;
+  --tint: 80;
+}
+```
+
+## Materials
+
+| Utility | What it is |
+| --- | --- |
+| `gloss` | The diagonal reflection plus a deep base; `--gloss-strength` scales it |
+| `shadow-key` | A keycap with a solid lip in a darker shade of its face (`--lip`) |
+| `shadow-slab` | A raised surface: cards, popups, tables |
+| `shadow-well` | A recessed surface: inputs, tracks, trays |
+| `rim` | The lit top edge of a slab, fading down its sides |
+| `marble` / `marble-fine` | Page-scale veining, and the finer streaks used on bands |
+
+## Motion
+
+Three curves, used everywhere: `ease-out` for things entering and leaving, `ease-in-out` for things moving on screen, `ease-drawer` for sheets and drawers. Popups take 150ms, modals 200ms, and nothing driven from the keyboard animates.

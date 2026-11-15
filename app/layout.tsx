@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google"
 
+import { RootProvider } from "fumadocs-ui/provider/next"
+
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toast"
@@ -28,11 +30,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         display.variable
       )}
     >
-      <body>
+      <body className="flex min-h-screen flex-col">
         <ThemeProvider>
-          <TooltipProvider>
-            <Toaster>{children}</Toaster>
-          </TooltipProvider>
+          <RootProvider theme={{ enabled: false }}>
+            <TooltipProvider>
+              <Toaster>{children}</Toaster>
+            </TooltipProvider>
+          </RootProvider>
         </ThemeProvider>
       </body>
     </html>

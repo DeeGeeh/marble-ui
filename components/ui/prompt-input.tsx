@@ -15,7 +15,6 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group"
 
-/** Chat composer. Enter sends, Shift+Enter breaks the line. */
 function PromptInput({
   className,
   children,
@@ -27,7 +26,6 @@ function PromptInput({
       className={cn("w-full", className)}
       {...props}
     >
-      {/* opaque: the field shouldn't show the marble of whatever band it sits on */}
       <InputGroup className="rounded-xl bg-card dark:bg-card">
         {children}
       </InputGroup>
@@ -79,7 +77,6 @@ function PromptInputFooter({
   )
 }
 
-/** Row above the text for attachment chips and other context. */
 function PromptInputHeader({
   className,
   ...props
@@ -94,7 +91,6 @@ function PromptInputHeader({
   )
 }
 
-/** Paperclip that opens the file picker and hands back what was chosen. */
 function PromptInputAttach({
   onFiles,
   accept,
@@ -134,7 +130,6 @@ function PromptInputAttach({
   )
 }
 
-/** Send while idle; becomes a stop button while the reply is in flight. */
 function PromptInputSubmit({
   busy = false,
   onStop,

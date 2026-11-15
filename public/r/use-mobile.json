@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "hooks/use-mobile.ts",
-      "content": "import { useMediaQuery } from \"usehooks-ts\"\n\n/** Below the md breakpoint. False on the server, then the real value after mount. */\nexport function useIsMobile() {\n  return useMediaQuery(\"(max-width: 767px)\", { initializeWithValue: false })\n}\n",
+      "content": "import { useMediaQuery } from \"usehooks-ts\"\n\nexport function useIsMobile() {\n  return useMediaQuery(\"(max-width: 767px)\", { initializeWithValue: false })\n}\n",
       "type": "registry:hook"
     }
   ],
