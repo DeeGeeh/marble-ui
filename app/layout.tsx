@@ -30,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         display.variable
       )}
     >
-      <body className="flex min-h-screen flex-col">
+      <body className="flex min-h-dvh flex-col">
         <ThemeProvider>
           <RootProvider theme={{ enabled: false }}>
             <TooltipProvider>

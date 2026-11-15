@@ -17,6 +17,7 @@ function ThemeProvider({
       {...props}
     >
       <ThemeHotkey />
+      <ThemeColor />
       {children}
     </NextThemesProvider>
   )
@@ -25,6 +26,26 @@ function ThemeProvider({
 function ThemeHotkey() {
   const { resolvedTheme, setTheme } = useTheme()
   useHotkeys("d", () => setTheme(resolvedTheme === "dark" ? "light" : "dark"))
+  return null
+}
+
+function ThemeColor() {
+  const { resolvedTheme } = useTheme()
+  React.useEffect(() => {
+    let meta = document.querySelector<HTMLMetaElement>(
+      'meta[name="theme-color"]'
+    )
+    if (!meta) {
+      meta = document.createElement("meta")
+      meta.name = "theme-color"
+      document.head.append(meta)
+    }
+    const tag = meta
+    const frame = requestAnimationFrame(() => {
+      tag.content = getComputedStyle(document.body).backgroundColor
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [resolvedTheme])
   return null
 }
 

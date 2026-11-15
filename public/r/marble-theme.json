@@ -15,7 +15,7 @@
   "files": [
     {
       "path": "components/theme-provider.tsx",
-      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { ThemeProvider as NextThemesProvider, useTheme } from \"next-themes\"\nimport { useHotkeys } from \"react-hotkeys-hook\"\n\nfunction ThemeProvider({\n  children,\n  ...props\n}: React.ComponentProps<typeof NextThemesProvider>) {\n  return (\n    <NextThemesProvider\n      attribute=\"class\"\n      defaultTheme=\"light\"\n      enableSystem\n      disableTransitionOnChange\n      {...props}\n    >\n      <ThemeHotkey />\n      {children}\n    </NextThemesProvider>\n  )\n}\n\nfunction ThemeHotkey() {\n  const { resolvedTheme, setTheme } = useTheme()\n  useHotkeys(\"d\", () => setTheme(resolvedTheme === \"dark\" ? \"light\" : \"dark\"))\n  return null\n}\n\nexport { ThemeProvider }\n",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { ThemeProvider as NextThemesProvider, useTheme } from \"next-themes\"\nimport { useHotkeys } from \"react-hotkeys-hook\"\n\nfunction ThemeProvider({\n  children,\n  ...props\n}: React.ComponentProps<typeof NextThemesProvider>) {\n  return (\n    <NextThemesProvider\n      attribute=\"class\"\n      defaultTheme=\"light\"\n      enableSystem\n      disableTransitionOnChange\n      {...props}\n    >\n      <ThemeHotkey />\n      <ThemeColor />\n      {children}\n    </NextThemesProvider>\n  )\n}\n\nfunction ThemeHotkey() {\n  const { resolvedTheme, setTheme } = useTheme()\n  useHotkeys(\"d\", () => setTheme(resolvedTheme === \"dark\" ? \"light\" : \"dark\"))\n  return null\n}\n\nfunction ThemeColor() {\n  const { resolvedTheme } = useTheme()\n  React.useEffect(() => {\n    let meta = document.querySelector<HTMLMetaElement>(\n      'meta[name=\"theme-color\"]'\n    )\n    if (!meta) {\n      meta = document.createElement(\"meta\")\n      meta.name = \"theme-color\"\n      document.head.append(meta)\n    }\n    const tag = meta\n    const frame = requestAnimationFrame(() => {\n      tag.content = getComputedStyle(document.body).backgroundColor\n    })\n    return () => cancelAnimationFrame(frame)\n  }, [resolvedTheme])\n  return null\n}\n\nexport { ThemeProvider }\n",
       "type": "registry:component"
     }
   ],
@@ -360,7 +360,16 @@
       "html": {
         "@apply font-sans": {},
         "interpolate-size": "allow-keywords",
-        "-webkit-tap-highlight-color": "transparent"
+        "-webkit-tap-highlight-color": "transparent",
+        "-webkit-text-size-adjust": "100%"
+      },
+      ":where(button, a, [role=\"button\"], [role=\"tab\"], [role=\"menuitem\"], [role=\"option\"])": {
+        "touch-action": "manipulation"
+      },
+      ":where(button, [role=\"button\"], [role=\"tab\"])": {
+        "-webkit-user-select": "none",
+        "user-select": "none",
+        "-webkit-touch-callout": "none"
       }
     }
   },

@@ -31,7 +31,7 @@ export default async function Home() {
     <>
       <SiteHeader />
       <main className="flex flex-1 flex-col">
-        <section className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-6 pt-24 pb-16 text-center">
+        <section className="mx-auto flex w-full max-w-3xl flex-col items-center gap-6 px-6 pt-24 pb-16 text-center">
           <h1 className="font-heading text-5xl font-bold tracking-tight text-balance md:text-7xl">
             Marble UI
           </h1>
@@ -50,11 +50,11 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="mx-auto grid w-full max-w-6xl gap-4 px-6 pb-20 md:grid-cols-2 xl:grid-cols-3">
+        <section className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 px-6 pb-20 md:grid-cols-2 xl:grid-cols-3">
           {tiles.map(({ name, Example, page }) => (
             <div
               key={name}
-              className="flex min-h-64 flex-col rounded-2xl border bg-muted/50 marble shadow-well"
+              className="flex min-h-64 min-w-0 flex-col rounded-2xl border bg-muted/50 marble shadow-well"
             >
               <Link
                 href={`/docs/components/${page?.slug}`}
