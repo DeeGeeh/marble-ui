@@ -36,6 +36,7 @@ export default function PieChartExample() {
           content={<ChartTooltipContent hideLabel />}
         />
         <Pie
+          isAnimationActive={false}
           data={browsers}
           dataKey="visitors"
           nameKey="browser"

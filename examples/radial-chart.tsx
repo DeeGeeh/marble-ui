@@ -20,7 +20,12 @@ export default function RadialChartExample() {
         outerRadius={96}
       >
         <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
-        <RadialBar dataKey="value" background cornerRadius={12} />
+        <RadialBar
+          isAnimationActive={false}
+          dataKey="value"
+          background
+          cornerRadius={12}
+        />
         <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
           <tspan
             x="50%"

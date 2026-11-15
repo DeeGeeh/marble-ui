@@ -67,6 +67,7 @@ export default function AreaChartExample() {
         />
         {(["mobile", "desktop"] as const).map((key) => (
           <Area
+            isAnimationActive={false}
             key={key}
             dataKey={key}
             type="natural"

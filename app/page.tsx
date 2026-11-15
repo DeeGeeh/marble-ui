@@ -43,7 +43,7 @@ export default async function Home() {
             <Button
               size="lg"
               nativeButton={false}
-              render={<Link href="/docs/components/button" />}
+              render={<Link href="/components" />}
             >
               Browse components <ArrowRightIcon data-icon="inline-end" />
             </Button>
@@ -57,7 +57,7 @@ export default async function Home() {
               className="flex min-h-64 min-w-0 flex-col rounded-2xl border bg-muted/50 marble shadow-well"
             >
               <Link
-                href={`/docs/components/${page?.slug}`}
+                href={`/components/${page?.slug}`}
                 className="group flex items-center justify-between px-5 pt-4 text-sm font-medium text-muted-foreground hover:text-foreground"
               >
                 {page?.title}

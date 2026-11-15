@@ -236,7 +236,7 @@ const byGroup: Record<ComponentPage["group"], Entry[]> = {
   ],
   Layout: [
     ["separator", "Separator", "A thin divider between content."],
-    ["frame", "Frame", "A recessed marble tray holding raised panels."],
+    ["frame", "Frame", "A raised marble tile with panels set into it."],
     ["aspect-ratio", "Aspect Ratio", "Keep content at a fixed ratio."],
     [
       "scroll-area",

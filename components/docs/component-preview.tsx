@@ -9,9 +9,11 @@ import { CopyInstall } from "./copy-install"
 export async function ComponentPreview({
   name,
   install,
+  usage,
 }: {
   name: string
   install: readonly string[]
+  usage: string
 }) {
   const load = examples[name]
   if (!load) throw new Error(`No example named "${name}"`)
@@ -22,16 +24,24 @@ export async function ComponentPreview({
 
   return (
     <Tabs defaultValue="preview" className="my-6 not-prose">
-      <TabsList>
-        <TabsTrigger value="preview">Preview</TabsTrigger>
-        <TabsTrigger value="code">Code</TabsTrigger>
-      </TabsList>
+      <div className="flex items-center justify-between gap-2">
+        <TabsList>
+          <TabsTrigger value="preview">Preview</TabsTrigger>
+          {usage && <TabsTrigger value="usage">Usage</TabsTrigger>}
+          <TabsTrigger value="code">Code</TabsTrigger>
+        </TabsList>
+        <CopyInstall items={install} />
+      </div>
       <TabsContent value="preview">
-        <div className="relative flex min-h-80 flex-col items-center justify-center gap-4 rounded-2xl border bg-muted/50 marble px-6 pt-16 pb-10 shadow-well">
-          <CopyInstall items={install} className="absolute top-3 right-3" />
+        <div className="flex min-h-80 flex-col items-center justify-center gap-4 rounded-2xl border bg-muted/50 marble px-6 py-10 shadow-well">
           <Example />
         </div>
       </TabsContent>
+      {usage && (
+        <TabsContent value="usage">
+          <ServerCodeBlock code={usage} lang="tsx" />
+        </TabsContent>
+      )}
       <TabsContent value="code">
         <ServerCodeBlock code={code} lang="tsx" />
       </TabsContent>

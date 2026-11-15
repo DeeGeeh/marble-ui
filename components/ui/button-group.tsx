@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator"
 
 const buttonGroupVariants = cva(
-  "relative isolate flex w-fit items-stretch rounded-lg *:[--gloss-streak:none] *:focus-visible:relative *:focus-visible:z-raised has-[>[data-slot=button-group]]:gap-2 has-[>[data-slot=button]]:after:pointer-events-none has-[>[data-slot=button]]:after:absolute has-[>[data-slot=button]]:after:inset-0 has-[>[data-slot=button]]:after:z-raised has-[>[data-slot=button]]:after:rounded-[inherit] has-[>[data-slot=button]]:after:gloss-sheen has-[>[data-variant=outline],>[data-variant=secondary]]:[--gloss-strength:0.5] has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-lg [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+  "relative isolate flex w-fit items-stretch rounded-lg *:focus-visible:relative *:focus-visible:z-raised has-[>[data-slot=button-group]]:gap-2 has-[>[data-slot=button]]:after:pointer-events-none has-[>[data-slot=button]]:after:absolute has-[>[data-slot=button]]:after:inset-0 has-[>[data-slot=button]]:after:z-raised has-[>[data-slot=button]]:after:rounded-[inherit] has-[>[data-slot=button]]:after:gloss-sheen has-[>[data-variant=outline],>[data-variant=secondary]]:[--gloss-strength:0.5] has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-lg [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
   {
     variants: {
       orientation: {

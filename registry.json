@@ -87,9 +87,9 @@
           "radius-2xl": "calc(var(--radius) * 1.8)",
           "radius-3xl": "calc(var(--radius) * 2.2)",
           "radius-4xl": "calc(var(--radius) * 2.6)",
-          "shadow-stone": "inset 0 1px 0 var(--highlight), inset 0 -2px 0 var(--edge),\n    0 1px 2px var(--drop), 0 2px 6px -3px var(--drop)",
-          "shadow-key": "inset 0 1px 0 var(--highlight), inset 0 -1px 0 var(--edge),\n    0 3px 0 var(--lip, var(--edge)), 0 5px 10px -4px var(--drop)",
-          "shadow-key-pressed": "inset 0 1px 2px var(--edge), 0 1px 0 var(--lip, var(--edge))",
+          "shadow-stone": "inset 0 0 0 1px oklch(1 0 0 / 0.12),\n    inset 0 1px 0 0 color-mix(in oklch, var(--highlight) 75%, transparent),\n    inset 0 -1px 0 0 color-mix(in oklch, var(--highlight) 22%, transparent),\n    inset 0 -4px 6px -4px oklch(0 0 0 / 0.18), 0 1px 2px 0 oklch(0 0 0 / 0.18),\n    0 3px 6px -3px oklch(0 0 0 / 0.2)",
+          "shadow-key": "inset 1px 2px 0 0 var(--face, transparent),\n    inset 2px 3px 1px 0 color-mix(in oklch, var(--highlight) 65%, transparent),\n    inset -1px -2px 0 0 var(--face, transparent),\n    inset -2px -3px 1px 0 color-mix(in oklch, var(--highlight) 22%, transparent),\n    inset 0 -7px 9px -5px oklch(0 0 0 / 0.2),\n    0 3px 0 0\n      var(--lip, color-mix(in oklch, var(--face, var(--edge)), black 30%)),\n    0 6px 12px -5px oklch(0 0 0 / 0.24)",
+          "shadow-key-pressed": "inset 1px 2px 0 0 var(--face, transparent),\n    inset 2px 3px 1px 0 color-mix(in oklch, var(--highlight) 25%, transparent),\n    inset -1px -2px 0 0 var(--face, transparent),\n    inset -2px -3px 1px 0 color-mix(in oklch, var(--highlight) 7%, transparent),\n    inset 0 2px 6px -2px oklch(0 0 0 / 0.2),\n    0 1px 0 0\n      var(--lip, color-mix(in oklch, var(--face, var(--edge)), black 30%)),\n    0 2px 4px -2px oklch(0 0 0 / 0.14)",
           "inset-shadow-seam-x": "inset 1px 0 0 var(--edge), inset 2px 0 0 var(--highlight)",
           "inset-shadow-seam-y": "inset 0 1px 0 var(--edge), inset 0 2px 0 var(--highlight)",
           "shadow-chip": "inset 0 1px 0 var(--highlight), inset 0 -1px 0 var(--edge),\n    0 1px 2px var(--drop)",
@@ -118,7 +118,7 @@
           "primary": "oklch(0.5 var(--chroma) var(--hue))",
           "primary-text": "var(--primary)",
           "primary-foreground": "oklch(0.99 0.004 var(--hue))",
-          "secondary": "var(--card)",
+          "secondary": "oklch(0.925 0.006 var(--tint))",
           "secondary-foreground": "var(--foreground)",
           "muted": "oklch(0.945 0.004 var(--tint))",
           "muted-foreground": "oklch(0.52 0.01 var(--tint))",
@@ -144,6 +144,7 @@
           "sidebar-border": "var(--border)",
           "sidebar-ring": "var(--ring)",
           "highlight": "oklch(1 0 0 / 0.9)",
+          "engrave": "0 1px 0 oklch(1 0 0 / 0.85)",
           "edge": "oklch(0.3 0.01 var(--tint) / 0.18)",
           "drop": "oklch(0.25 0.01 var(--tint) / 0.14)",
           "sheen": "oklch(1 0 0 / 0.55)",
@@ -151,7 +152,8 @@
           "skeleton-sheen": "oklch(1 0 0 / 0.7)",
           "bounce": "oklch(1 0 0 / 0.14)",
           "vein": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='v' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0022 0.006' numOctaves='6' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.53 0 0 0 0 0.5 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 0 0 0 0 0 0.035 0 0 0 0 0 0 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3CfeGaussianBlur stdDeviation='1.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23v%29'/%3E%3C/svg%3E\")",
-          "vein-fine": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='v' x='-50%25' y='-50%25' width='200%25' height='200%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0025 0.02' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.53 0 0 0 0 0.5 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.049 0.14 0.049 0 0 0 0 0 0 0 0 0 0 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3CfeGaussianBlur stdDeviation='0.5'/%3E%3C/filter%3E%3Cg transform='rotate%28-28 300 300%29'%3E%3Crect x='-300' y='-300' width='1200' height='1200' filter='url%28%23v%29'/%3E%3C/g%3E%3C/svg%3E\")"
+          "vein-fine": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='v' x='-50%25' y='-50%25' width='200%25' height='200%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0025 0.02' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.53 0 0 0 0 0.5 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.049 0.14 0.049 0 0 0 0 0 0 0 0 0 0 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3CfeGaussianBlur stdDeviation='0.5'/%3E%3C/filter%3E%3Cg transform='rotate%28-28 300 300%29'%3E%3Crect x='-300' y='-300' width='1200' height='1200' filter='url%28%23v%29'/%3E%3C/g%3E%3C/svg%3E\")",
+          "vein-knob": "url(\"data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2764%27%20height=%2764%27%3E%3Cfilter%20id=%27v%27%20x=%27-50%25%27%20y=%27-50%25%27%20width=%27200%25%27%20height=%27200%25%27%20color-interpolation-filters=%27sRGB%27%3E%3CfeTurbulence%20type=%27fractalNoise%27%20baseFrequency=%270.012%200.05%27%20numOctaves=%274%27%20seed=%279%27/%3E%3CfeColorMatrix%20values=%270%200%200%200%200.42%200%200%200%200%200.4%200%200%200%200%200.37%201%200%200%200%200%27/%3E%3CfeComponentTransfer%3E%3CfeFuncA%20type=%27table%27%20tableValues=%270%200%200%200%200%200%200%200%200%200%200%200%200%200%200.12%200.45%200.12%200%200%200%200%200%200%200%200%200%200%200%200%200%200%27/%3E%3C/feComponentTransfer%3E%3CfeGaussianBlur%20stdDeviation=%270.25%27/%3E%3C/filter%3E%3Cg%20transform=%27rotate%28-35%2032%2032%29%27%3E%3Crect%20x=%27-32%27%20y=%27-32%27%20width=%27128%27%20height=%27128%27%20filter=%27url%28%23v%29%27/%3E%3C/g%3E%3C/svg%3E\")"
         },
         "dark": {
           "background": "oklch(0.19 0.004 var(--tint))",
@@ -161,7 +163,7 @@
           "primary": "oklch(0.52 var(--chroma) var(--hue))",
           "primary-text": "oklch(0.76 var(--chroma) var(--hue))",
           "primary-foreground": "oklch(0.99 0.004 var(--hue))",
-          "secondary": "oklch(0.25 0.005 var(--tint))",
+          "secondary": "oklch(0.33 0.006 var(--tint))",
           "muted": "oklch(0.26 0.005 var(--tint))",
           "muted-foreground": "oklch(0.7 0.008 var(--tint))",
           "accent": "oklch(0.3 calc(var(--chroma) * 0.3) var(--hue))",
@@ -176,6 +178,7 @@
           "chart-5": "oklch(0.56 0.01 var(--tint))",
           "sidebar": "oklch(0.16 0.004 var(--tint))",
           "highlight": "oklch(1 0 0 / 0.3)",
+          "engrave": "0 -1px 0 oklch(0 0 0 / 0.6)",
           "edge": "oklch(0 0 0 / 0.4)",
           "drop": "oklch(0 0 0 / 0.35)",
           "sheen": "oklch(1 0 0 / 0.3)",
@@ -292,13 +295,24 @@
         },
         "@utility gloss": {
           "@apply gloss-sheen": {},
-          "background-image": "var(--gloss-streak, var(--gloss-reflection)),\n    linear-gradient(to bottom, transparent 50%, var(--shade) 90%, var(--bounce))"
+          "background-image": "var(--gloss-reflection),\n    linear-gradient(to bottom, transparent 50%, var(--shade) 90%, var(--bounce))"
+        },
+        "@utility key": {
+          "background-color": "var(--face)",
+          "background-image": "linear-gradient(\n    to bottom,\n    oklch(1 0 0 / 0.07),\n    transparent 45%,\n    oklch(0 0 0 / 0.1)\n  )"
         },
         "@utility marble": {
           "background-image": "var(--vein)"
         },
+        "@utility engraved": {
+          "text-shadow": "var(--engrave)"
+        },
         "@utility marble-fine": {
           "background-image": "var(--vein-fine)"
+        },
+        "@utility marble-knob": {
+          "background-image": "var(--vein-knob)",
+          "background-size": "cover"
         },
         "@layer base": {
           "::-webkit-scrollbar": {
@@ -374,7 +388,7 @@
             "-webkit-tap-highlight-color": "transparent",
             "-webkit-text-size-adjust": "100%"
           },
-          ":where(button, a, [role=\"button\"], [role=\"tab\"], [role=\"menuitem\"], [role=\"option\"])": {
+          ":where(\n    button,\n    a,\n    [role=\"button\"],\n    [role=\"tab\"],\n    [role=\"menuitem\"],\n    [role=\"option\"]\n  )": {
             "touch-action": "manipulation"
           },
           ":where(button, [role=\"button\"], [role=\"tab\"])": {
@@ -598,7 +612,9 @@
         "class-variance-authority@^0.7.1"
       ],
       "registryDependencies": [
-        "https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/marble-theme.json"
+        "https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/marble-theme.json",
+        "https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/spinner.json",
+        "https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/tooltip.json"
       ],
       "files": [
         {

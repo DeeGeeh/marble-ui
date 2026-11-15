@@ -5,13 +5,13 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const toggleVariants = cva(
-  "group/toggle relative inline-flex items-center justify-center gap-1 rounded-lg text-sm font-medium whitespace-nowrap transition-[background-color,color,box-shadow,scale,translate] duration-150 ease-out outline-none hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 aria-pressed:bg-muted aria-pressed:text-primary-text aria-pressed:shadow-well dark:aria-invalid:ring-destructive/40 pointer-coarse:after:absolute pointer-coarse:after:-inset-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/toggle relative inline-flex items-center justify-center gap-1 rounded-lg text-sm font-medium whitespace-nowrap text-muted-foreground transition-[scale,translate] duration-150 ease-out outline-none hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 in-data-nest:rounded-(--nest-radius) aria-invalid:border-destructive aria-invalid:ring-destructive/20 aria-pressed:bg-[color-mix(in_oklch,var(--muted),var(--foreground)_7%)] aria-pressed:text-primary-text aria-pressed:shadow-well dark:aria-invalid:ring-destructive/40 pointer-coarse:after:absolute pointer-coarse:after:-inset-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default: "bg-transparent",
         outline:
-          "border border-input bg-card gloss shadow-key [--gloss-strength:0.5] [--lip:color-mix(in_oklch,var(--border),var(--foreground)_12%)] hover:bg-muted active:translate-y-0.5 active:scale-100 active:shadow-key-pressed aria-pressed:translate-y-0.5 aria-pressed:bg-muted aria-pressed:shadow-key-pressed",
+          "border border-input key shadow-key [--face:var(--card)] hover:[--face:var(--muted)] active:translate-y-0.5 active:scale-100 active:shadow-key-pressed aria-pressed:translate-y-0.5 aria-pressed:border-transparent",
       },
       size: {
         default:

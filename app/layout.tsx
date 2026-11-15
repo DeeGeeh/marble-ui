@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google"
 
 import { RootProvider } from "fumadocs-ui/provider/next"
+import { SearchDialog } from "@/components/site/search-dialog"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -32,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-dvh flex-col">
         <ThemeProvider>
-          <RootProvider theme={{ enabled: false }}>
+          <RootProvider theme={{ enabled: false }} search={{ SearchDialog }}>
             <TooltipProvider>
               <Toaster>{children}</Toaster>
             </TooltipProvider>

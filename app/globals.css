@@ -8,6 +8,10 @@
   --site-header-height: 3.5rem;
   --fd-nav-height: var(--site-header-height);
 }
+:root,
+.dark {
+  --color-fd-primary: var(--primary-text);
+}
 @utility not-prose {
   --not-prose: 1;
 }

@@ -1,3 +1,4 @@
 {
-  "pages": ["---Getting Started---", "index", "installation", "theming", "---Components---", "...components"]
+  "title": "Getting Started",
+  "pages": ["index", "installation", "theming"]
 }

@@ -7,8 +7,9 @@ function Toolbar({ className, ...props }: ToolbarPrimitive.Root.Props) {
   return (
     <ToolbarPrimitive.Root
       data-slot="toolbar"
+      data-nest=""
       className={cn(
-        "rim relative flex w-fit items-center gap-1 rounded-xl bg-card p-1 shadow-slab data-[orientation=vertical]:flex-col",
+        "rim relative flex w-fit items-center gap-1 rounded-xl bg-card p-1 shadow-slab [--nest-radius:calc(var(--radius-xl)-var(--spacing))] data-[orientation=vertical]:flex-col **:data-[slot=button]:not-data-[variant=ghost]:not-data-[variant=link]:mb-[3px]",
         className
       )}
       {...props}

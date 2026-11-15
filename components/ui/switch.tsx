@@ -22,7 +22,7 @@ function Switch({
     >
       <SwitchPrimitive.Thumb
         data-slot="switch-thumb"
-        className="pointer-events-none block rounded-full bg-card gloss shadow-stone ring-0 transition-transform duration-150 ease-out group-active/switch:scale-95 group-data-[size=default]/switch:size-5 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] dark:data-checked:bg-primary-foreground group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0 dark:data-unchecked:bg-foreground"
+        className="pointer-events-none relative block overflow-hidden rounded-full bg-card shadow-stone ring-0 transition-transform duration-150 ease-out group-active/switch:scale-95 group-data-[size=default]/switch:size-5 group-data-[size=sm]/switch:size-3 before:absolute before:inset-0 before:marble-knob before:transition-transform before:duration-150 before:ease-out after:absolute after:inset-0 after:gloss motion-reduce:before:transition-none group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] data-checked:before:rotate-[103deg] dark:data-checked:bg-primary-foreground group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0 dark:data-unchecked:bg-foreground"
       />
     </SwitchPrimitive.Root>
   )

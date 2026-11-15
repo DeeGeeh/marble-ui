@@ -1,6 +1,5 @@
 import { Square2StackIcon } from "@heroicons/react/24/outline"
 import { Button } from "@/components/ui/button"
-import { Spinner } from "@/components/ui/spinner"
 
 export default function ButtonExample() {
   return (
@@ -18,11 +17,14 @@ export default function ButtonExample() {
         <Button size="sm">Small</Button>
         <Button>Default</Button>
         <Button size="lg">Large</Button>
-        <Button size="icon" variant="outline" aria-label="Copy">
+        <Button size="icon" variant="outline" aria-label="Copy" tooltip="Copy">
           <Square2StackIcon />
         </Button>
-        <Button aria-busy>
-          <Spinner /> Loading
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <Button loading>Saving</Button>
+        <Button variant="secondary" disabledReason="Add a payment method first">
+          Upgrade
         </Button>
       </div>
     </>

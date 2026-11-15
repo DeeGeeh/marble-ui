@@ -44,9 +44,9 @@ function SegmentedControlItem({
     props: mergeProps<"button">(
       {
         className: cn(
-          "relative inline-flex h-[calc(--spacing(9)-7px)] flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-md px-2.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-colors outline-none select-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+          "relative inline-flex h-[calc(--spacing(9)-7px)] flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-md px-2.5 text-sm font-medium whitespace-nowrap text-foreground/70 transition-colors outline-none select-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
           "aria-[current=page]:text-foreground data-pressed:text-foreground dark:aria-[current=page]:text-foreground dark:data-pressed:text-foreground data-checked:text-foreground dark:data-checked:text-foreground",
-          "not-in-data-[indicator=ready]:data-pressed:bg-card not-in-data-[indicator=ready]:data-pressed:gloss not-in-data-[indicator=ready]:data-pressed:shadow-stone not-in-data-[indicator=ready]:data-checked:bg-card not-in-data-[indicator=ready]:data-checked:gloss not-in-data-[indicator=ready]:data-checked:shadow-stone",
+          "not-in-data-[indicator=ready]:data-pressed:bg-card not-in-data-[indicator=ready]:data-pressed:shadow-stone not-in-data-[indicator=ready]:data-checked:bg-card not-in-data-[indicator=ready]:data-checked:shadow-stone",
           className
         ),
         ...(render ? {} : { type: "button" as const }),
@@ -89,6 +89,14 @@ function SegmentedControlIndicator() {
       root.dataset.indicator = next ? "ready" : "idle"
     }
 
+    const scroller = root.parentElement
+    const active = root.querySelector<HTMLElement>(activeItem)
+    if (scroller && active && scroller.scrollWidth > scroller.clientWidth) {
+      const from = scroller.getBoundingClientRect()
+      const to = active.getBoundingClientRect()
+      scroller.scrollLeft += to.left - from.left - (from.width - to.width) / 2
+    }
+
     const resize = new ResizeObserver(update)
     const mutation = new MutationObserver(update)
     resize.observe(root)
@@ -109,7 +117,7 @@ function SegmentedControlIndicator() {
       aria-hidden
       hidden={!rect}
       data-slot="segmented-control-indicator"
-      className="pointer-events-none absolute top-0 left-0 -z-1 h-(--h) w-(--w) translate-x-(--x) translate-y-(--y) rounded-md bg-card gloss shadow-stone transition-[translate,width,height] duration-200 ease-in-out motion-reduce:transition-none dark:bg-input/30 dark:ring-1 dark:ring-input dark:ring-inset"
+      className="pointer-events-none absolute top-0 left-0 -z-1 h-(--h) w-(--w) translate-x-(--x) translate-y-(--y) rounded-md bg-card shadow-stone transition-[translate,width,height] duration-200 ease-in-out motion-reduce:transition-none dark:bg-input/30 dark:ring-1 dark:ring-input dark:ring-inset"
       style={
         {
           "--x": `${rect?.left ?? 0}px`,

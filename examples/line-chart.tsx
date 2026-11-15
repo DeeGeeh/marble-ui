@@ -39,6 +39,7 @@ export default function LineChartExample() {
         <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
         {(["desktop", "mobile"] as const).map((key) => (
           <Line
+            isAnimationActive={false}
             key={key}
             dataKey={key}
             type="monotone"

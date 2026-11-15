@@ -40,8 +40,18 @@ export default function BarChartExample() {
           cursor={false}
           content={<ChartTooltipContent indicator="dashed" />}
         />
-        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={6} />
-        <Bar dataKey="mobile" fill="var(--color-mobile)" radius={6} />
+        <Bar
+          isAnimationActive={false}
+          dataKey="desktop"
+          fill="var(--color-desktop)"
+          radius={6}
+        />
+        <Bar
+          isAnimationActive={false}
+          dataKey="mobile"
+          fill="var(--color-mobile)"
+          radius={6}
+        />
       </BarChart>
     </ChartContainer>
   )

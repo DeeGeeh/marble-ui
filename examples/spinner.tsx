@@ -7,11 +7,9 @@ export default function SpinnerExample() {
       <Spinner />
       <Spinner className="text-2xl" />
       <Spinner className="text-5xl" />
-      <Button aria-busy>
-        <Spinner /> Saving
-      </Button>
-      <Button variant="outline" aria-busy>
-        <Spinner /> Loading
+      <Button loading>Saving</Button>
+      <Button variant="outline" loading>
+        Loading
       </Button>
     </div>
   )

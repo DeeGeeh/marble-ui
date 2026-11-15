@@ -5,7 +5,7 @@ function Frame({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="frame"
       className={cn(
-        "flex flex-col gap-1.5 rounded-2xl border bg-muted/50 marble-fine p-1.5 shadow-well",
+        "rim relative flex flex-col gap-1.5 rounded-2xl bg-muted/50 marble-fine p-1.5 shadow-slab",
         className
       )}
       {...props}
@@ -18,7 +18,7 @@ function FramePanel({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="frame-panel"
       className={cn(
-        "rim relative rounded-xl bg-card p-5 shadow-slab",
+        "relative rounded-xl border bg-card p-5 shadow-well",
         className
       )}
       {...props}
@@ -30,7 +30,7 @@ function FrameHeader({ className, ...props }: React.ComponentProps<"header">) {
   return (
     <header
       data-slot="frame-header"
-      className={cn("flex flex-col gap-0.5 px-4 pt-3 pb-2", className)}
+      className={cn("flex flex-col gap-0.5 px-4 pt-3 pb-2 engraved", className)}
       {...props}
     />
   )
@@ -40,7 +40,10 @@ function FrameTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="frame-title"
-      className={cn("text-sm font-semibold", className)}
+      className={cn(
+        "font-heading text-sm font-semibold text-foreground/75",
+        className
+      )}
       {...props}
     />
   )

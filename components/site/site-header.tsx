@@ -15,20 +15,19 @@ import { site } from "@/lib/site"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Kbd, KbdGroup } from "@/components/ui/kbd"
-import { SimppaSprite } from "@/components/simppa/sprite"
+import { Logo } from "@/components/site/logo"
 
 const nav = [
   { label: "Home", href: "/", match: (path: string) => path === "/" },
   {
     label: "Docs",
     href: "/docs",
-    match: (path: string) =>
-      path.startsWith("/docs") && !path.startsWith("/docs/components"),
+    match: (path: string) => path.startsWith("/docs"),
   },
   {
     label: "Components",
-    href: "/docs/components/button",
-    match: (path: string) => path.startsWith("/docs/components"),
+    href: "/components",
+    match: (path: string) => path.startsWith("/components"),
   },
 ]
 
@@ -43,10 +42,13 @@ export function SiteHeader() {
         href="/"
         className="flex items-center gap-2 font-heading text-base font-bold"
       >
-        <SimppaSprite className="h-6 w-auto" />
+        <Logo />
         {site.name}
       </Link>
-      <nav className="mx-auto hidden items-center gap-1 rounded-full bg-muted/60 p-1 shadow-well md:flex">
+      <nav
+        aria-label="Main"
+        className="mx-auto hidden items-center gap-1 rounded-full bg-muted/60 p-1 shadow-well md:flex"
+      >
         {nav.map((item) => (
           <Link
             key={item.href}
@@ -63,9 +65,10 @@ export function SiteHeader() {
       </nav>
       <div className="ml-auto flex items-center gap-1 md:ml-0">
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
-          className="gap-2 text-muted-foreground"
+          aria-label="Search"
+          className="gap-2 rounded-full bg-muted/60 pr-1.5 text-muted-foreground shadow-well hover:bg-muted"
           onClick={() => setOpenSearch(true)}
         >
           <MagnifyingGlassIcon />
