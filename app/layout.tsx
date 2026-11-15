@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toast"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
+import { Analytics } from "@vercel/analytics/next"
 
 const sans = Geist({ subsets: ["latin"], variable: "--font-sans" })
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" })
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </TooltipProvider>
           </RootProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
