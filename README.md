@@ -2,6 +2,8 @@
 
 A shadcn registry: Base UI components in a marble, glossy, chunky finish.
 
+Docs and live demos: https://marble-ui.vercel.app
+
 ## Install
 
 In a Next.js app with Tailwind v4 and shadcn set up:
