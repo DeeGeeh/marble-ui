@@ -40,7 +40,6 @@ function PromptInputTextarea({
 }: React.ComponentProps<"textarea">) {
   return (
     <InputGroupTextarea
-      data-slot="prompt-input-textarea"
       rows={1}
       className={cn(
         "field-sizing-content max-h-48 min-h-10 px-3 pt-3",

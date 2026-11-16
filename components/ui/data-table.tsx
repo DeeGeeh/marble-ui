@@ -30,14 +30,16 @@ import {
   useTable,
   type Cell,
   type Header,
+  type Row,
   type RowData,
 } from "@tanstack/react-table"
-import { useEffect, useId, useRef, useState } from "react"
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
 
 import { Checkbox } from "@/components/ui/checkbox"
 import { cn } from "@/lib/utils"
 
 type DataTableColumnMeta = {
+  /** Inline editing requires a top-level accessorKey. */
   editor?: "text" | "number" | "date" | "select"
   options?: readonly string[]
 }
@@ -82,30 +84,51 @@ function DataTable<TData extends RowData>({
   onRowChange?: (rowIndex: number, patch: Partial<TData>) => void
   className?: string
 }) {
-  const allColumns: typeof columns = [
-    {
-      id: "select",
-      size: 44,
-      enableResizing: false,
-      enableCellSelection: false,
-      header: ({ table }) => (
-        <Checkbox
-          aria-label="Select all rows"
-          checked={table.getIsAllRowsSelected()}
-          indeterminate={table.getIsSomeRowsSelected()}
-          onCheckedChange={(checked) => table.toggleAllRowsSelected(checked)}
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          aria-label="Select row"
-          checked={row.getIsSelected()}
-          onCheckedChange={(checked) => selectRow(row.index, checked)}
-        />
-      ),
+  const shiftHeld = useRef(false)
+  const lastSelected = useRef<number | null>(null)
+  const selectRow = useCallback(
+    (row: Row<Features, TData>, checked: boolean) => {
+      if (shiftHeld.current && lastSelected.current !== null) {
+        const [from, to] = [lastSelected.current, row.index].sort(
+          (a, b) => a - b
+        )
+        for (const item of row.table.getRowModel().rows.slice(from, to + 1))
+          item.toggleSelected(checked)
+      } else {
+        row.toggleSelected(checked)
+      }
+      lastSelected.current = row.index
     },
-    ...columns,
-  ]
+    []
+  )
+
+  const allColumns = useMemo<typeof columns>(
+    () => [
+      {
+        id: "select",
+        size: 44,
+        enableResizing: false,
+        enableCellSelection: false,
+        header: ({ table }) => (
+          <Checkbox
+            aria-label="Select all rows"
+            checked={table.getIsAllRowsSelected()}
+            indeterminate={table.getIsSomeRowsSelected()}
+            onCheckedChange={(checked) => table.toggleAllRowsSelected(checked)}
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            aria-label="Select row"
+            checked={row.getIsSelected()}
+            onCheckedChange={(checked) => selectRow(row, checked)}
+          />
+        ),
+      },
+      ...columns,
+    ],
+    [columns, selectRow]
+  )
 
   const table = useTable(
     {
@@ -124,8 +147,6 @@ function DataTable<TData extends RowData>({
 
   const [editing, setEditing] = useState<Editing | null>(null)
   const [scrolled, setScrolled] = useState(false)
-  const shiftHeld = useRef(false)
-  const lastSelected = useRef<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const focused = table.getFocusedCell()
 
@@ -136,19 +157,8 @@ function DataTable<TData extends RowData>({
       ?.focus({ preventScroll: false })
   }, [focused, editing])
 
-  function selectRow(index: number, checked: boolean) {
-    const rows = table.getRowModel().rows
-    if (shiftHeld.current && lastSelected.current !== null) {
-      const [from, to] = [lastSelected.current, index].sort((a, b) => a - b)
-      for (const row of rows.slice(from, to + 1)) row.toggleSelected(checked)
-    } else {
-      rows[index]?.toggleSelected(checked)
-    }
-    lastSelected.current = index
-  }
-
   function startEditing(cell: Cell<Features, TData, unknown>, draft?: string) {
-    if (!cell.column.columnDef.meta?.editor) return
+    if (!onRowChange || editableKey(cell) === null) return
     setEditing({
       rowId: cell.row.id,
       columnId: cell.column.id,
@@ -164,21 +174,27 @@ function DataTable<TData extends RowData>({
       .find((c) => c.column.id === editing.columnId)
     const editor = cell?.column.columnDef.meta?.editor
     const value = editor === "number" ? Number(editing.draft) : editing.draft
-    if (cell && value !== cell.getValue()) {
+    const key = cell ? editableKey(cell) : null
+    if (cell && key !== null && value !== cell.getValue()) {
       onRowChange?.(cell.row.index, {
-        [editing.columnId]: value,
+        [key]: value,
       } as Partial<TData>)
     }
     setEditing(null)
   }
 
   function onKeyDown(event: React.KeyboardEvent) {
+    if (event.key === "Tab") {
+      // Let native Tab navigation blur/commit the editor without refocusing its cell.
+      table.setCellSelection([])
+      return
+    }
     if (editing) {
       if (event.key === "Escape") setEditing(null)
-      else if (event.key === "Enter" || event.key === "Tab") {
+      else if (event.key === "Enter") {
         event.preventDefault()
         commit()
-        table.moveCellSelection(event.key === "Tab" ? "right" : "down")
+        table.moveCellSelection("down")
       }
       return
     }
@@ -187,9 +203,6 @@ function DataTable<TData extends RowData>({
       event.preventDefault()
       if (event.shiftKey) table.extendCellSelection(direction)
       else table.moveCellSelection(direction)
-    } else if (event.key === "Tab" && focused) {
-      event.preventDefault()
-      table.moveCellSelection(event.shiftKey ? "left" : "right")
     } else if ((event.key === "Enter" || event.key === "F2") && focused) {
       event.preventDefault()
       startEditing(focused)
@@ -320,6 +333,16 @@ function DataTable<TData extends RowData>({
       </div>
     </div>
   )
+}
+
+function editableKey<TData extends RowData>(
+  cell: Cell<Features, TData, unknown>
+) {
+  const column = cell.column.columnDef
+  const key = "accessorKey" in column ? column.accessorKey : null
+  return column.meta?.editor && typeof key === "string" && !key.includes(".")
+    ? key
+    : null
 }
 
 function HeaderCell<TData extends RowData>({

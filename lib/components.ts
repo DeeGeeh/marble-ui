@@ -205,24 +205,6 @@ const byGroup: Record<ComponentPage["group"], Entry[]> = {
     ["empty", "Empty", "What to show when there's nothing to show."],
   ],
   Chat: [
-    [
-      "agent-chat",
-      "Agent Chat",
-      "A streaming AI chat on the AI SDK: reasoning, tools, approvals and attachments.",
-      {
-        install: [
-          "prompt-input",
-          "message",
-          "bubble",
-          "message-scroller",
-          "trace",
-          "attachment",
-          "alert",
-          "card",
-          "spinner",
-        ],
-      },
-    ],
     ["message", "Message", "One chat message: avatar, content and footer."],
     ["bubble", "Bubble", "Chat bubbles in every variant."],
     ["marker", "Marker", "Inline events and separators in a thread."],

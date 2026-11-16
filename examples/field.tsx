@@ -15,7 +15,7 @@ export default function FieldExample() {
         <Input id="email" type="email" placeholder="you@example.com" />
         <FieldDescription>We never share it.</FieldDescription>
       </Field>
-      <Field data-invalid>
+      <Field invalid>
         <FieldLabel htmlFor="username">Username</FieldLabel>
         <Input id="username" aria-invalid defaultValue="admin" />
         <FieldError>Username is taken.</FieldError>

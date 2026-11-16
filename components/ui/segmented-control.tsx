@@ -98,12 +98,22 @@ function SegmentedControlIndicator() {
     }
 
     const resize = new ResizeObserver(update)
-    const mutation = new MutationObserver(update)
-    resize.observe(root)
-    for (const child of root.children) {
-      resize.observe(child)
-      mutation.observe(child, { attributes: true, attributeFilter: watched })
+    const observeSizes = () => {
+      resize.disconnect()
+      resize.observe(root)
+      for (const child of root.children) resize.observe(child)
     }
+    const mutation = new MutationObserver((records) => {
+      if (records.some((record) => record.type === "childList")) observeSizes()
+      update()
+    })
+    observeSizes()
+    mutation.observe(root, {
+      attributes: true,
+      attributeFilter: watched,
+      childList: true,
+      subtree: true,
+    })
     update()
     return () => {
       resize.disconnect()

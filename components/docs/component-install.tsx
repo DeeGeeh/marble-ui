@@ -1,31 +1,17 @@
 import { readFile } from "node:fs/promises"
 import path from "node:path"
 import { ServerCodeBlock } from "fumadocs-ui/components/codeblock.rsc"
+import { registryItems } from "@/lib/registry"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { InstallCommand } from "./install-command"
-
-type RegistryItem = {
-  name: string
-  dependencies?: string[]
-  files?: { path: string }[]
-}
-
-async function registryItems(names: readonly string[]) {
-  const registry: { items: RegistryItem[] } = JSON.parse(
-    await readFile(path.join(process.cwd(), "registry.json"), "utf8")
-  )
-  return names.flatMap((name) =>
-    registry.items.filter((item) => item.name === name)
-  )
-}
 
 export async function ComponentInstall({
   items,
 }: {
   items: readonly string[]
 }) {
-  const resolved = await registryItems(items)
+  const resolved = registryItems(items)
   const deps = [...new Set(resolved.flatMap((item) => item.dependencies ?? []))]
   const files = await Promise.all(
     resolved

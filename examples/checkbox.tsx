@@ -8,7 +8,7 @@ export default function CheckboxExample() {
         <Checkbox id="terms" defaultChecked />
         <FieldLabel htmlFor="terms">Accept terms</FieldLabel>
       </Field>
-      <Field orientation="horizontal" data-disabled>
+      <Field orientation="horizontal" disabled>
         <Checkbox id="disabled" disabled />
         <FieldLabel htmlFor="disabled">Disabled</FieldLabel>
       </Field>

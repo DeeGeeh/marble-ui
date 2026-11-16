@@ -5,7 +5,6 @@ export const examples: Record<
   () => Promise<{ default: ComponentType }>
 > = {
   accordion: () => import("./accordion"),
-  "agent-chat": () => import("./agent-chat"),
   alert: () => import("./alert"),
   "alert-dialog": () => import("./alert-dialog"),
   "area-chart": () => import("./area-chart"),
