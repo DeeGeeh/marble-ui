@@ -89,9 +89,8 @@ function DataTable<TData extends RowData>({
   const selectRow = useCallback(
     (row: Row<Features, TData>, checked: boolean) => {
       if (shiftHeld.current && lastSelected.current !== null) {
-        const [from, to] = [lastSelected.current, row.index].sort(
-          (a, b) => a - b
-        )
+        const from = Math.min(lastSelected.current, row.index)
+        const to = Math.max(lastSelected.current, row.index)
         for (const item of row.table.getRowModel().rows.slice(from, to + 1))
           item.toggleSelected(checked)
       } else {

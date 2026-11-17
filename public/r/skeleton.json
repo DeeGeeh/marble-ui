@@ -9,7 +9,8 @@
     {
       "path": "components/ui/skeleton.tsx",
       "content": "import { cn } from \"@/lib/utils\"\n\nfunction Skeleton({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"skeleton\"\n      aria-hidden\n      className={cn(\n        \"relative overflow-hidden rounded-md bg-muted shadow-well\",\n        className\n      )}\n      {...props}\n    >\n      <span className=\"absolute inset-0 animate-skeleton-sweep bg-[linear-gradient(115deg,transparent_25%,var(--skeleton-sheen)_50%,transparent_75%)] motion-reduce:animate-none\" />\n    </div>\n  )\n}\n\nconst lineWidths = [\"w-full\", \"w-[94%]\", \"w-[98%]\", \"w-[88%]\"]\n\nfunction SkeletonText({\n  lines = 3,\n  className,\n}: {\n  lines?: number\n  className?: string\n}) {\n  return (\n    <div aria-hidden className={cn(\"flex flex-col gap-2.5\", className)}>\n      {Array.from({ length: lines }, (_, i) => (\n        <Skeleton\n          key={i}\n          className={cn(\n            \"h-3.5\",\n            i === lines - 1 && lines > 1\n              ? \"w-[62%]\"\n              : lineWidths[i % lineWidths.length]\n          )}\n        />\n      ))}\n    </div>\n  )\n}\n\nfunction SkeletonAvatar({ className }: { className?: string }) {\n  return <Skeleton className={cn(\"size-10 shrink-0 rounded-full\", className)} />\n}\n\nfunction SkeletonReveal({\n  loading,\n  skeleton,\n  children,\n  className,\n}: {\n  loading: boolean\n  skeleton: React.ReactNode\n  children: React.ReactNode\n  className?: string\n}) {\n  return loading ? (\n    <div role=\"status\" aria-busy aria-label=\"Loading\" className={className}>\n      {skeleton}\n    </div>\n  ) : (\n    <div className={cn(\"animate-skeleton-reveal\", className)}>{children}</div>\n  )\n}\n\nexport { Skeleton, SkeletonText, SkeletonAvatar, SkeletonReveal }\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "@ui/skeleton.tsx"
     }
   ],
   "type": "registry:ui"

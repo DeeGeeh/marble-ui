@@ -138,11 +138,21 @@ const items = [
     name,
     type: "registry:ui",
     ...depsOf(`components/ui/${name}.tsx`),
-    files: [{ path: `components/ui/${name}.tsx`, type: "registry:ui" }],
+    files: [
+      {
+        path: `components/ui/${name}.tsx`,
+        type: "registry:ui",
+        // shadcn derives the destination from the path relative to the ui alias's last
+        // folder; in monorepos (ui alias ".../components") that nests files in ui/.
+        target: `@ui/${name}.tsx`,
+      },
+    ],
   })),
   {
     name: "marble-kit",
-    type: "registry:item",
+    // shadcn only replaces existing CSS variables when the requested item is a style or
+    // theme; as a plain item the kit would keep the stock shadcn colours.
+    type: "registry:style",
     title: "Marble kit",
     description: "The whole kit: theme and every component.",
     registryDependencies: components.map(url),

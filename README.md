@@ -9,14 +9,16 @@ Docs and live demos: https://marble-ui.vercel.app
 In a Next.js app with Tailwind v4 and shadcn set up:
 
 ```sh
-# everything
-npx shadcn@latest add https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/marble-kit.json
+# everything: theme and every component
+npx shadcn@latest add DeeGeeh/marble-ui/marble-kit
 
 # or one component (pulls in the theme and whatever it depends on)
-npx shadcn@latest add https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/button.json
+npx shadcn@latest add DeeGeeh/marble-ui/button
 ```
 
-The theme merges into your `app/globals.css` (tokens, materials and motion), replacing what `shadcn init` wrote. Then load Geist, Geist Mono and Bricolage Grotesque as `--font-sans`, `--font-mono` and `--font-display`, with the app wrapped in `<ThemeProvider>` (see `app/layout.tsx`).
+The kit replaces the colours `shadcn init` wrote with Marble's tokens, materials and motion. A single component only adds the tokens you don't have yet, so install the kit first. Then load Geist, Geist Mono and Bricolage Grotesque as `--font-sans`, `--font-mono` and `--font-display`, with the app wrapped in `<ThemeProvider>` (see `app/layout.tsx`).
+
+Works in monorepos too: components land wherever the `ui` alias in `components.json` points.
 
 ## Develop
 

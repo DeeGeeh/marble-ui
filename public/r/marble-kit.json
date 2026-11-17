@@ -78,5 +78,5 @@
     "https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/tooltip.json",
     "https://raw.githubusercontent.com/DeeGeeh/marble-ui/master/public/r/trace.json"
   ],
-  "type": "registry:item"
+  "type": "registry:style"
 }
