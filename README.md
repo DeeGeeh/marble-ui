@@ -12,11 +12,11 @@ In a Next.js app with Tailwind v4 and shadcn set up:
 # everything: theme and every component
 npx shadcn@latest add DeeGeeh/marble-ui/marble-kit
 
-# or one component (pulls in the theme and whatever it depends on)
-npx shadcn@latest add DeeGeeh/marble-ui/button
+# or just what you need: name the theme so it replaces the default colours
+npx shadcn@latest add DeeGeeh/marble-ui/marble-theme DeeGeeh/marble-ui/button
 ```
 
-The kit replaces the colours `shadcn init` wrote with Marble's tokens, materials and motion. A single component only adds the tokens you don't have yet, so install the kit first. Then load Geist, Geist Mono and Bricolage Grotesque as `--font-sans`, `--font-mono` and `--font-display`, with the app wrapped in `<ThemeProvider>` (see `app/layout.tsx`).
+The kit and the theme replace the colours `shadcn init` wrote with Marble's tokens, materials and motion, and ask before overwriting; pass `--yes` to skip the prompt. A component added on its own only adds the tokens you don't have yet. Then load Geist, Geist Mono and Bricolage Grotesque as `--font-sans`, `--font-mono` and `--font-display`, with the app wrapped in `<ThemeProvider>` (see `app/layout.tsx`).
 
 Works in monorepos too: components land wherever the `ui` alias in `components.json` points.
 
